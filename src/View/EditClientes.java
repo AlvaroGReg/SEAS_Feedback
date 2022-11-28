@@ -62,7 +62,6 @@ public class EditClientes extends javax.swing.JPanel {
         Modificar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         ListCli = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
 
         jLabel1.setText("Nombre");
 
@@ -92,13 +91,6 @@ public class EditClientes extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(ListCli);
 
-        jButton1.setText("Volver");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                goBack(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,11 +112,7 @@ public class EditClientes extends javax.swing.JPanel {
                             .addComponent(Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TxtApellido2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(55, 55, 55)
-                                .addComponent(jButton1)))))
+                        .addComponent(TxtApellido2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -144,9 +132,7 @@ public class EditClientes extends javax.swing.JPanel {
                     .addComponent(jLabel3)
                     .addComponent(TxtApellido2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Modificar)
-                    .addComponent(jButton1))
+                .addComponent(Modificar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -159,10 +145,6 @@ public class EditClientes extends javax.swing.JPanel {
        acciones.getSelectedRow();
     }//GEN-LAST:event_ListCliMouseClicked
 
-    private void goBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBack
-        
-    }//GEN-LAST:event_goBack
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ListCli;
@@ -170,7 +152,6 @@ public class EditClientes extends javax.swing.JPanel {
     private javax.swing.JTextField TxtApellido1;
     private javax.swing.JTextField TxtApellido2;
     private javax.swing.JTextField TxtNombre;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
