@@ -61,6 +61,7 @@ public class AltaClientes extends javax.swing.JPanel {
         TxtNombre = new javax.swing.JTextField();
         TxtApellido = new javax.swing.JTextField();
         TxtApellido2 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setLayout(null);
 
@@ -71,7 +72,7 @@ public class AltaClientes extends javax.swing.JPanel {
             }
         });
         add(GuardarCliente);
-        GuardarCliente.setBounds(170, 160, 90, 25);
+        GuardarCliente.setBounds(140, 150, 90, 25);
 
         Nombre.setText("Nombre");
         add(Nombre);
@@ -90,11 +91,24 @@ public class AltaClientes extends javax.swing.JPanel {
         TxtApellido.setBounds(180, 70, 140, 19);
         add(TxtApellido2);
         TxtApellido2.setBounds(180, 110, 140, 19);
+
+        jButton1.setText("Volver");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1goBack(evt);
+            }
+        });
+        add(jButton1);
+        jButton1.setBounds(140, 180, 90, 25);
     }// </editor-fold>//GEN-END:initComponents
 
     private void GuardarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarClienteActionPerformed
      acciones.newClient(TxtNombre.getText(), TxtApellido.getText(), TxtApellido2.getText());
     }//GEN-LAST:event_GuardarClienteActionPerformed
+
+    private void jButton1goBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1goBack
+
+    }//GEN-LAST:event_jButton1goBack
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -105,5 +119,6 @@ public class AltaClientes extends javax.swing.JPanel {
     private javax.swing.JTextField TxtApellido;
     private javax.swing.JTextField TxtApellido2;
     private javax.swing.JTextField TxtNombre;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
