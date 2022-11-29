@@ -4,17 +4,22 @@
  */
 package View;
 
+import Main.FrameMain;
+
 /**
  *
  * @author alvar
  */
-public class PanelHistorial extends javax.swing.JPanel {
+public class PanelMainMenu extends javax.swing.JPanel {
+    
+    private FrameMain frame;
 
     /**
-     * Creates new form PanelHistorial
+     * Creates new form MainMenu
      */
-    public PanelHistorial() {
-        initComponents();
+    public PanelMainMenu(FrameMain frame) {
+        this.frame=frame;
+        initComponents();       
     }
 
     /**
@@ -26,19 +31,24 @@ public class PanelHistorial extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Res/ic_caja.jpeg"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 647, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

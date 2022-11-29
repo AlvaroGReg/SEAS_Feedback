@@ -12,13 +12,8 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/View/PanelHistorial.java</file>
-            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/View/MainMenu.java</file>
-            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/View/EditClientes.java</file>
-            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/View/PanelVenta.java</file>
-            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/View/Productos.java</file>
+            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/Main/FrameMain.java</file>
             <file>file:/C:/Cursos/Java/SEAS_Feedback/src/View/AltaClientes.java</file>
-            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/View/BajaClientes.java</file>
         </group>
     </open-files>
 </project-private>

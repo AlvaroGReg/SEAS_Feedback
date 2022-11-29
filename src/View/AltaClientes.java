@@ -25,13 +25,6 @@ public class AltaClientes extends javax.swing.JPanel {
         acciones=new AccionesAltaClientes(this);
     }    
     
-    public FrameMain getFrame(){
-        return frame;
-    }    
-    
-    public void setFrame(FrameMain frame){
-        this.frame=frame;
-    }
     
     public JTextField getTxtNombre(){
         return TxtNombre;

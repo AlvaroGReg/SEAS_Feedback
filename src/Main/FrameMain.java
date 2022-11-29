@@ -3,18 +3,24 @@ package Main;
 import View.AltaClientes;
 import View.BajaClientes;
 import View.EditClientes;
+import View.PanelHistory;
+import View.PanelMainMenu;
+import View.PanelNewSell;
+import View.PanelProducts;
 
 /**
  *
  * @author alvar
  */
 public class FrameMain extends javax.swing.JFrame {
-
+    
     /**
-     * Creates new form EfFrame
+     * Creates new form FrameMain
      */
-    public FrameMain() {
+    public FrameMain() {  
         initComponents();
+        PanelMainMenu panelMenu = new PanelMainMenu(this);
+        PanelContenedor.add(panelMenu, java.awt.BorderLayout.CENTER);
     }
 
     /**
@@ -26,6 +32,11 @@ public class FrameMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelButtons = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        openProducts = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         PanelContenedor = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         Clientes = new javax.swing.JMenu();
@@ -35,6 +46,40 @@ public class FrameMain extends javax.swing.JFrame {
         Empleados = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jButton1.setText("Nueva venta");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openNewSellAction(evt);
+            }
+        });
+        panelButtons.add(jButton1);
+
+        jButton2.setText("Historial de ventas");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openHistoryAction(evt);
+            }
+        });
+        panelButtons.add(jButton2);
+
+        openProducts.setText("Productos");
+        openProducts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openProductsActionPerformed(evt);
+            }
+        });
+        panelButtons.add(openProducts);
+
+        jButton4.setText("Inicio");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backToMenuAction(evt);
+            }
+        });
+        panelButtons.add(jButton4);
+
+        getContentPane().add(panelButtons, java.awt.BorderLayout.PAGE_END);
 
         PanelContenedor.setPreferredSize(new java.awt.Dimension(600, 600));
         PanelContenedor.setLayout(new java.awt.BorderLayout());
@@ -97,6 +142,34 @@ public class FrameMain extends javax.swing.JFrame {
         pack();
     }//GEN-LAST:event_EditClientesActionPerformed
 
+    private void backToMenuAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMenuAction
+        PanelContenedor.removeAll();
+        PanelMainMenu menuPanel = new PanelMainMenu(this);
+        PanelContenedor.add(menuPanel, java.awt.BorderLayout.CENTER);
+        pack();
+    }//GEN-LAST:event_backToMenuAction
+
+    private void openProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openProductsActionPerformed
+        PanelContenedor.removeAll();
+        PanelProducts productsPanel = new PanelProducts(this);
+        PanelContenedor.add(productsPanel, java.awt.BorderLayout.CENTER);
+        pack();
+    }//GEN-LAST:event_openProductsActionPerformed
+
+    private void openHistoryAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openHistoryAction
+        PanelContenedor.removeAll();
+        PanelHistory historyPanel = new PanelHistory(this);
+        PanelContenedor.add(historyPanel, java.awt.BorderLayout.CENTER);
+        pack();
+    }//GEN-LAST:event_openHistoryAction
+
+    private void openNewSellAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openNewSellAction
+        PanelContenedor.removeAll();
+        PanelNewSell newSellPanel = new PanelNewSell(this);
+        PanelContenedor.add(newSellPanel, java.awt.BorderLayout.CENTER);
+        pack();
+    }//GEN-LAST:event_openNewSellAction
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AltaClientes;
@@ -105,6 +178,11 @@ public class FrameMain extends javax.swing.JFrame {
     private javax.swing.JMenuItem EditClientes;
     private javax.swing.JMenu Empleados;
     private javax.swing.JPanel PanelContenedor;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JButton openProducts;
+    private javax.swing.JPanel panelButtons;
     // End of variables declaration//GEN-END:variables
 }
