@@ -94,8 +94,10 @@ public class ClientsController {
     
     //Takes darta from EditText, updates DB and refresh table   
     public void editClient(){
+        
         int idcliente=Integer.parseInt(id);
         DefaultTableModel tblModel=(DefaultTableModel) panel.getTable().getModel();
+        
         if(panel.getTable().getSelectedRowCount()==1){
             
             String nombre=panel.getClientName().getText();
@@ -122,7 +124,7 @@ public class ClientsController {
                     se.printStackTrace();
                 }
             }
-            
+            //NOT NECCESARY BUT EARLY TO ERASE
             tblModel.setValueAt(nombre, panel.getTable().getSelectedRow(), 1);
             tblModel.setValueAt(apellido_1, panel.getTable().getSelectedRow(), 2);
             tblModel.setValueAt(apellido_2, panel.getTable().getSelectedRow(), 3);

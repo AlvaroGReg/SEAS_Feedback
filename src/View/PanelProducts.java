@@ -32,7 +32,8 @@ public class PanelProducts extends javax.swing.JPanel {
     public JTable getProductsTable() {
         return ProductsList;
     }
-        public JScrollPane getjScrollPane2() {
+    
+    public JScrollPane getjScrollPane2() {
         return jScrollPane2;
     }
 
@@ -180,7 +181,7 @@ public class PanelProducts extends javax.swing.JPanel {
     }//GEN-LAST:event_addProductAction
 
     private void editProductAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProductAction
-        // TODO add your handling code here:
+        controller.editClient();
     }//GEN-LAST:event_editProductAction
 
     private void deleteProductAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductAction

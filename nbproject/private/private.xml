@@ -12,7 +12,9 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/Main/FrameMain.java</file>
+            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/Model/Converter/ProductConverter.java</file>
+            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/Controller/ProductsController.java</file>
+            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/View/PanelProducts.java</file>
         </group>
     </open-files>
 </project-private>
