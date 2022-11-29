@@ -5,8 +5,12 @@
 package Controller;
 
 import Model.Converter.ProductConverter;
+import Model.DB.Conexion;
 import View.PanelProducts;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -52,4 +56,33 @@ public class ProductsController {
         panel.getTextfield_name().setText(name);
         panel.getTextField_price().setText(String.valueOf(price));
     }
+    
+       //Takes darta from EditText, updates DB and refresh table   
+    public void editClient(){
+        
+        int idcliente=Integer.parseInt(id);
+        DefaultTableModel tblModel=(DefaultTableModel) panel.getTable().getModel();
+        
+        if(panel.getTable().getSelectedRowCount()==1){
+            
+            String nombre=panel.getClientName().getText();
+            String apellido_1=panel.getPrename1().getText();
+            String apellido_2=panel.getPrename2().getText();
+            
+           
+            
+            tblModel.setValueAt(nombre, panel.getTable().getSelectedRow(), 1);
+            tblModel.setValueAt(apellido_1, panel.getTable().getSelectedRow(), 2);
+            tblModel.setValueAt(apellido_2, panel.getTable().getSelectedRow(), 3);
+            
+            JOptionPane.showMessageDialog(panel, "Modificación Realizada");
+            refreshTable();
+        } else{
+            if (panel.getTable().getRowCount()==0){
+                JOptionPane.showMessageDialog(panel, "La tabla esta vacia.");
+            } else{
+              JOptionPane.showMessageDialog(panel, "Por favor, seleccione una fila a modificar");
+            }
+        }
+    } 
 }
