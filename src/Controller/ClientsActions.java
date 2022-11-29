@@ -6,7 +6,7 @@
 package Controller;
 
 import Model.DB.Conexion;
-import View.EditClientes;
+import View.PanelClients;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,20 +20,19 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author alvar
  */
-public class AccionesEditClientes {
+public class ClientsActions {
     
-    private EditClientes panel;
+    private PanelClients panel;
     private DefaultTableModel tabla;
     private Connection conexion;
     private String id;
     
-    public AccionesEditClientes(EditClientes panel){
+    public ClientsActions(PanelClients panel){
         this.panel=panel;
     }
     
     // Refresh table data
-    
-    public void NewTable(){
+    public void refreshTable(){
         try{    
         tabla = new DefaultTableModel(new String[]{
             "ID", "Nombre", "1ºApellido", "2ºApellido"}, 0);
@@ -74,7 +73,6 @@ public class AccionesEditClientes {
     }
     
     //Shows data from selected row in EditTextField
-    
     public void getSelectedRow(){
         
         DefaultTableModel tblModel=(DefaultTableModel) panel.getTable().getModel();
@@ -83,22 +81,21 @@ public class AccionesEditClientes {
         String tblApe1=tblModel.getValueAt(panel.getTable().getSelectedRow(), 2).toString();
         String tblApe2=tblModel.getValueAt(panel.getTable().getSelectedRow(), 3).toString();
         
-        panel.getNombre().setText(tblNombre);
-        panel.getApellido_1().setText(tblApe1);
-        panel.getApellido_2().setText(tblApe2);
+        panel.getClientName().setText(tblNombre);
+        panel.getPrename1().setText(tblApe1);
+        panel.getPrename2().setText(tblApe2);
     }
     
     
-    //Takes darta from EditText and updates in DB and table
-    
-    public void EditClient(){
+    //Takes darta from EditText, updates DB and refresh table   
+    public void editClient(){
         int idcliente=Integer.parseInt(id);
         DefaultTableModel tblModel=(DefaultTableModel) panel.getTable().getModel();
         if(panel.getTable().getSelectedRowCount()==1){
             
-            String nombre=panel.getNombre().getText();
-            String apellido_1=panel.getApellido_1().getText();
-            String apellido_2=panel.getApellido_2().getText();
+            String nombre=panel.getClientName().getText();
+            String apellido_1=panel.getPrename1().getText();
+            String apellido_2=panel.getPrename2().getText();
             
             try{
                 Conexion conect=new Conexion();
@@ -126,6 +123,7 @@ public class AccionesEditClientes {
             tblModel.setValueAt(apellido_2, panel.getTable().getSelectedRow(), 3);
             
             JOptionPane.showMessageDialog(panel, "Modificación Realizada");
+            refreshTable();
         } else{
             if (panel.getTable().getRowCount()==0){
                 JOptionPane.showMessageDialog(panel, "La tabla esta vacia.");
@@ -134,5 +132,72 @@ public class AccionesEditClientes {
             }
         }
     }
+    
+    // Erases selected data from DB and table
+    public void eraseClient(){
+        
+        int idcliente=Integer.parseInt(id);
+        DefaultTableModel tblModel=(DefaultTableModel) panel.getTable().getModel();
+        if(panel.getTable().getSelectedRowCount()==1){
+        try{
+            Conexion conect=new Conexion();
+            conexion=conect.getConexion();
+            PreparedStatement consulta;
+            consulta=conexion.prepareStatement("DELETE FROM Clientes WHERE id_cliente="+ idcliente);
+            consulta.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            try{
+                if (conexion != null){
+                    conexion.close();
+                }
+            } catch (SQLException se){
+                se.printStackTrace();
+            }
+        }
+            JOptionPane.showMessageDialog(panel, "Usuario eliminado");
+        }else{
+            if (panel.getTable().getRowCount()==0){
+                JOptionPane.showMessageDialog(panel, "La tabla esta vacia.");
+            } else{
+              JOptionPane.showMessageDialog(panel, "Por favor, seleccione una fila a modificar");
+            }
+        }
+        
+        tblModel.removeRow(panel.getTable().getSelectedRow());
+    }
+    
+    // Sends new data to DB
+    public void newClient(String nombre, String apellido_1, String apellido_2){
+        
+        try{            
+            Conexion conect=new Conexion();
+            conexion=conect.getConexion();
+            PreparedStatement consulta;
+            consulta=conexion.prepareStatement("INSERT INTO Clientes (nombre, apellido_1, apellido_2) VALUES (?,?,?)");
+            consulta.setString(1, nombre);
+            consulta.setString(2, apellido_1);
+            consulta.setString(3, apellido_2);
+            consulta.executeUpdate();
+            
+            JOptionPane.showMessageDialog(panel, "Usuario añadido ");
+            refreshTable();
+            
+        } catch (SQLException e){
+            e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            
+            try{
+                if (conexion != null){
+                    conexion.close();
+                }
+            } catch (SQLException se){
+                se.printStackTrace();
+            }
+        }
+        
+    }
 }
-
