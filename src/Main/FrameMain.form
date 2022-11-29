@@ -9,25 +9,9 @@
             <Property name="text" type="java.lang.String" value="Clientes"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="AltaClientes">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Alta Clientes"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AltaClientesActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="BajaClientes">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Baja Clientes"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BajaClientesActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="EditClientes">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Editar Clientes"/>
+                <Property name="text" type="java.lang.String" value="&#xc1;rea Clientes"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EditClientesActionPerformed"/>

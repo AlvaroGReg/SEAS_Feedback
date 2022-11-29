@@ -1,8 +1,6 @@
 package Main;
 
-import View.AltaClientes;
-import View.BajaClientes;
-import View.EditClientes;
+import View.PanelClients;
 import View.PanelHistory;
 import View.PanelMainMenu;
 import View.PanelNewSell;
@@ -40,8 +38,6 @@ public class FrameMain extends javax.swing.JFrame {
         PanelContenedor = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         Clientes = new javax.swing.JMenu();
-        AltaClientes = new javax.swing.JMenuItem();
-        BajaClientes = new javax.swing.JMenuItem();
         EditClientes = new javax.swing.JMenuItem();
         Empleados = new javax.swing.JMenu();
 
@@ -87,23 +83,7 @@ public class FrameMain extends javax.swing.JFrame {
 
         Clientes.setText("Clientes");
 
-        AltaClientes.setText("Alta Clientes");
-        AltaClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AltaClientesActionPerformed(evt);
-            }
-        });
-        Clientes.add(AltaClientes);
-
-        BajaClientes.setText("Baja Clientes");
-        BajaClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BajaClientesActionPerformed(evt);
-            }
-        });
-        Clientes.add(BajaClientes);
-
-        EditClientes.setText("Editar Clientes");
+        EditClientes.setText("Área Clientes");
         EditClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EditClientesActionPerformed(evt);
@@ -121,23 +101,9 @@ public class FrameMain extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void AltaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AltaClientesActionPerformed
-        PanelContenedor.removeAll();
-        AltaClientes altaClientes = new AltaClientes(this);
-        PanelContenedor.add(altaClientes, java.awt.BorderLayout.CENTER);
-        pack();
-    }//GEN-LAST:event_AltaClientesActionPerformed
-
-    private void BajaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BajaClientesActionPerformed
-        PanelContenedor.removeAll();
-        BajaClientes bajaClientes = new BajaClientes(this);
-        PanelContenedor.add(bajaClientes, java.awt.BorderLayout.CENTER);
-        pack();
-    }//GEN-LAST:event_BajaClientesActionPerformed
-
     private void EditClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditClientesActionPerformed
         PanelContenedor.removeAll();
-        EditClientes editclientes = new EditClientes(this);
+        PanelClients editclientes = new PanelClients(this);
         PanelContenedor.add(editclientes, java.awt.BorderLayout.CENTER);
         pack();
     }//GEN-LAST:event_EditClientesActionPerformed
@@ -172,8 +138,6 @@ public class FrameMain extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem AltaClientes;
-    private javax.swing.JMenuItem BajaClientes;
     private javax.swing.JMenu Clientes;
     private javax.swing.JMenuItem EditClientes;
     private javax.swing.JMenu Empleados;
