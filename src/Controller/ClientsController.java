@@ -38,24 +38,29 @@ public class ClientsController {
             "ID", "Nombre", "1ºApellido", "2ºApellido"}, 0);
         panel.getTable().setModel(tabla);
         panel.getScrPanel().setViewportView(panel.getTable());
-        Conexion conect=new Conexion();
-        conexion=conect.getConexion();
-        Statement con=conexion.createStatement();
-        ResultSet rs=con.executeQuery("SELECT * FROM Clientes");
+        
+        Conexion connect = new Conexion();
+        conexion = connect.getConexion();
+        Statement con = conexion.createStatement();
+        ResultSet rs = con.executeQuery("SELECT * FROM Clientes");
+        
         String nombre="";
         String ape1="";
         String ape2="";
         
         while(rs.next()){
+            
             id=rs.getString(1);
             nombre=rs.getString(2);
             ape1=rs.getString(3);
             ape2=rs.getString(4);
+            
             Vector filaTabla = new Vector();
             filaTabla.add(id);
             filaTabla.add(nombre);
             filaTabla.add(ape1);
             filaTabla.add(ape2);
+            
             tabla.addRow(filaTabla);
         }
         

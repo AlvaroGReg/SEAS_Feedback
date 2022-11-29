@@ -47,6 +47,9 @@ public class PanelProducts extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         ProductsList = new javax.swing.JTable();
+        button_addProduct = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         jLabel1.setText("Productos");
 
@@ -73,18 +76,49 @@ public class PanelProducts extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(ProductsList);
 
+        button_addProduct.setText("Añadir Producto");
+        button_addProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addProductAction(evt);
+            }
+        });
+
+        jButton2.setText("Editar Producto");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editProductAction(evt);
+            }
+        });
+
+        jButton3.setText("Borrar Producto");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteProductAction(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(168, 168, 168)
-                .addComponent(jLabel1)
-                .addContainerGap(183, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(210, 210, 210))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(button_addProduct)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,7 +126,12 @@ public class PanelProducts extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 140, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(button_addProduct)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addGap(0, 97, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -100,9 +139,24 @@ public class PanelProducts extends javax.swing.JPanel {
         
     }//GEN-LAST:event_ProductsListMouseClicked
 
+    private void addProductAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductAction
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addProductAction
+
+    private void editProductAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProductAction
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editProductAction
+
+    private void deleteProductAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductAction
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteProductAction
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ProductsList;
+    private javax.swing.JButton button_addProduct;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
