@@ -1,6 +1,6 @@
 package View;
 
-import Controller.ClientsActions;
+import Controller.ClientsController;
 import Main.FrameMain;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -14,14 +14,14 @@ public class PanelClients extends javax.swing.JPanel {
 
     
     private FrameMain frame;
-    private ClientsActions acciones;
+    private ClientsController acciones;
     /**
      * Creates new form EditClientes
      */
     public PanelClients(FrameMain frame) {
         this.frame=frame;
         initComponents();
-        acciones=new ClientsActions(this);
+        acciones=new ClientsController(this);
         acciones.refreshTable();
     }
 

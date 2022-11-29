@@ -20,14 +20,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author alvar
  */
-public class ClientsActions {
+public class ClientsController {
     
     private PanelClients panel;
     private DefaultTableModel tabla;
     private Connection conexion;
     private String id;
     
-    public ClientsActions(PanelClients panel){
+    public ClientsController(PanelClients panel){
         this.panel=panel;
     }
     

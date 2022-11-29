@@ -4,7 +4,10 @@
  */
 package View;
 
+import Controller.ProductsController;
 import Main.FrameMain;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -13,6 +16,7 @@ import Main.FrameMain;
 public class PanelProducts extends javax.swing.JPanel {
     
         private FrameMain frame;
+        private ProductsController controller;
 
     /**
      * Creates new form Productos
@@ -20,6 +24,15 @@ public class PanelProducts extends javax.swing.JPanel {
     public PanelProducts(FrameMain frame) {
         this.frame=frame;
         initComponents();
+        controller = new ProductsController(this);
+        controller.refreshTable();
+    }
+
+    public JTable getProductsList() {
+        return ProductsList;
+    }
+        public JScrollPane getjScrollPane2() {
+        return jScrollPane2;
     }
 
     /**
@@ -32,29 +45,67 @@ public class PanelProducts extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ProductsList = new javax.swing.JTable();
 
         jLabel1.setText("Productos");
+
+        ProductsList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Nombre", "Precio"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        ProductsList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ProductsListMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(ProductsList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(166, 166, 166)
+                .addGap(168, 168, 168)
                 .addComponent(jLabel1)
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addContainerGap(183, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
                 .addComponent(jLabel1)
-                .addContainerGap(259, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 140, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ProductsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductsListMouseClicked
+        
+    }//GEN-LAST:event_ProductsListMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable ProductsList;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
+
+
 }

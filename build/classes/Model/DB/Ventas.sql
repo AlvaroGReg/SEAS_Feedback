@@ -8,16 +8,17 @@
  */
 
 
-CREATE DATABASE Productos;
+CREATE DATABASE Ventas;
 
-USE DATABASE Productos;
+USE DATABASE Ventas;
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-CREATE TABLE IF NOT EXISTS `Productos` (
-  `id_producto` int(9) NOT NULL AUTO_INCREMENT COMMENT 'id autoincremental',
-  `nombre` varchar(30) NOT NULL COMMENT 'nombre producto',
-  `precio` int(5) COMMENT 'precio producto',
-  PRIMARY KEY (`id_producto`),
+CREATE TABLE IF NOT EXISTS `Ventas` (
+  `id_compra` int(9) NOT NULL AUTO_INCREMENT COMMENT 'id autoincremental',
+  `fecha` date NOT NULL COMMENT 'fecha de la compra',
+  `comprador` int(20) COMMENT 'id del comprador',
+  `precio` int(11) COMMENT 'precio total de compra',  
+  PRIMARY KEY (`id_venta`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Tabla de Productos' AUTO_INCREMENT=1;
