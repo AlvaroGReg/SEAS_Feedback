@@ -34,7 +34,7 @@ public class ProductConverter {
             ResultSet rs = con.executeQuery("SELECT * FROM productos");
             
             while(rs.next()){
-                Product nextProduct = new Product(rs.getInt(1), rs.getString(2), rs.getInt(3));
+                Product nextProduct = new Product(rs.getInt(1), rs.getString(2), rs.getDouble(3));
                 productsList.add(nextProduct);
             }
         } catch (SQLException ex) {
@@ -51,7 +51,7 @@ public class ProductConverter {
         return productsList;
     }
     
-    public Product dbToObjet(int id, String name, int price){        
+    public Product dbToObjet(int id, String name, double price){        
         Product newProduct = new Product(id, name, price);
         return newProduct;
     }
