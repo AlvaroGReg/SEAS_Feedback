@@ -15,7 +15,6 @@ CREATE TABLE IF NOT EXISTS `Clientes` (
   `nombre` varchar(50) NOT NULL COMMENT 'nombre cliente',
   `apellido_1` varchar(50) COMMENT 'primer apellido del cliente',
   `apellido_2` varchar(50) COMMENT 'segundo apellido del cliente',
-  `clave_cliente` int(4) COMMENT 'clave de acceso',
+  `vip` boolean(1) COMMENT 'cliente habitual',
   PRIMARY KEY (`id_cliente`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Tabla de Clientes' AUTO_INCREMENT=1;
-

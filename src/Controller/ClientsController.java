@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller;
 
 import Model.ClientModel;
@@ -41,7 +36,7 @@ public class ClientsController {
             tableRow.add(dbConnector.getClientsList().get(x).getName());
             tableRow.add(dbConnector.getClientsList().get(x).getPrename1());
             tableRow.add(dbConnector.getClientsList().get(x).getPrename2());
-            tableRow.add(dbConnector.getClientsList().get(x).getCode());
+            tableRow.add(dbConnector.getClientsList().get(x).isVip());
             tableModel.addRow(tableRow);
         }
     }
@@ -52,41 +47,28 @@ public class ClientsController {
         DefaultTableModel tableModel =(DefaultTableModel) panel.getTable().getModel(); 
         
         panel.getTextView_clientName().setText(
-                tableModel.getValueAt(panel.getTable().getSelectedRow(), 1).toString());
+            tableModel.getValueAt(panel.getTable().getSelectedRow(), 1).toString());
         panel.getTextView_prename1().setText(
-                tableModel.getValueAt(panel.getTable().getSelectedRow(), 2).toString());
+            tableModel.getValueAt(panel.getTable().getSelectedRow(), 2).toString());
         panel.getTextView_prename2().setText(
-                tableModel.getValueAt(panel.getTable().getSelectedRow(), 3).toString());
-        panel.getTextView_code().setText(
-                String.valueOf(tableModel.getValueAt(panel.getTable().getSelectedRow(), 4)));
+            tableModel.getValueAt(panel.getTable().getSelectedRow(), 3).toString());
+        panel.getCheckBox_vip().setSelected(
+            (boolean)tableModel.getValueAt(panel.getTable().getSelectedRow(), 4));
     }
     
     //Takes data from EditText, updates DB and refresh table   
     public void editClient(){
             
-        if(panel.getTextView_code().getText()!=null){
             
             ClientModel editedClient = new ClientModel(
             getSelectedID(),        
             panel.getTextView_clientName().getText(),
             panel.getTextView_prename1().getText(),
             panel.getTextView_prename2().getText(),
-            Integer.parseInt(panel.getTextView_code().getText()));
+            panel.getCheckBox_vip().isSelected());
             
             dbConnector.editClient(editedClient);                              
-            refreshTable();
-            
-        }else{
-            
-            ClientModel editedClient = new ClientModel(
-            getSelectedID(),        
-            panel.getTextView_clientName().getText(),
-            panel.getTextView_prename1().getText(),
-            panel.getTextView_prename2().getText());
-
-            dbConnector.editClient(editedClient);                              
-            refreshTable();                        
-        }
+            refreshTable();                       
     } 
     
     //Communicates to connector to delete an item
@@ -97,70 +79,21 @@ public class ClientsController {
     
     // Sends new data from panel to connector
     public void addProduct(){
-        
-        if(panel.getTextView_code().getText()!=null){
-            
+                    
             ClientModel clientToAdd = new ClientModel(        
             panel.getTextView_clientName().getText(),
             panel.getTextView_prename1().getText(),
             panel.getTextView_prename2().getText(),
-            Integer.parseInt(panel.getTextView_code().getText()));
-            
-            dbConnector.newClient(clientToAdd);                              
-            refreshTable();
-            
-        }else{
-            
-            ClientModel clientToAdd = new ClientModel(        
-            panel.getTextView_clientName().getText(),
-            panel.getTextView_prename1().getText(),
-            panel.getTextView_prename2().getText());
+            panel.getCheckBox_vip().isSelected());
 
             dbConnector.newClient(clientToAdd);                              
-            refreshTable();                        
-        }             
+            refreshTable();                                            
     }
     
     //Returns ID of selected row
     public int getSelectedID(){
         return Integer.parseInt(panel.getTable().getValueAt(
                 panel.getTable().getSelectedRow(), 0).toString());
-    }
-    
-    //Checks if PIN has a valid number
-    public boolean checkValidPin(){
-        try{
-            int pinToCheck = Integer.parseInt(
-                panel.getTextView_code().getText());
-
-            if(pinToCheck<0){
-                
-                JOptionPane.showMessageDialog(
-                    panel, "Código erróneo, introduzca un número de 4 dígitos");
-                return false;
-                
-            }else if(pinToCheck>9999){
-                
-                JOptionPane.showMessageDialog(
-                    panel, "Código erróneo, introduzca un número de 4 dígitos");
-                return false;
-                
-            }else if(panel.getTextView_code().getText().length()!=4){
-                
-                JOptionPane.showMessageDialog(
-                    panel, "Código erróneo, introduzca un número de 4 dígitos");
-                return false;
-                
-            }else{  
-                
-                return true;
-            }
-        }catch(Exception e){
-            
-            JOptionPane.showMessageDialog(panel,
-                    "Código erróneo, introduzca un número de 4 dígitos");        
-            return false;
-        }
     }
 
     //Checks if name/prename String input is valid

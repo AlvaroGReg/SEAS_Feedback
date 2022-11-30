@@ -38,7 +38,7 @@ public class ClientDBConnector {
             while(rs.next()){
                 ClientModel nextClient = new ClientModel(
                         rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getInt(5));
+                        rs.getString(4), rs.getBoolean(5));
                 clientsList.add(nextClient);
             }
         } catch (SQLException ex) {
@@ -66,13 +66,13 @@ public class ClientDBConnector {
             PreparedStatement query;
             
             query = connection.prepareStatement(
-                    "UPDATE clientes SET nombre=?, apellido_1=?, apellido_2=?, clave_cliente=? "
+                    "UPDATE clientes SET nombre=?, apellido_1=?, apellido_2=?, vip=? "
                             + "WHERE id_cliente=" + clientToEdit.getId());
             
             query.setString(1, clientToEdit.getName());
             query.setString(2, clientToEdit.getPrename1());
             query.setString(3, clientToEdit.getPrename2());
-            query.setInt(4, clientToEdit.getCode());
+            query.setBoolean(4, clientToEdit.isVip());
             query.executeUpdate();
             
     } catch (SQLException ex) {
@@ -122,11 +122,11 @@ public class ClientDBConnector {
             PreparedStatement query;
             
             query = connection.prepareStatement(
-                    "INSERT INTO clientes (nombre, apellido_1, apellido_2, clave_cliente) VALUES (?,?,?,?)");            
+                    "INSERT INTO clientes (nombre, apellido_1, apellido_2, vip) VALUES (?,?,?,?)");            
             query.setString(1, clientToAdd.getName());
             query.setString(2, clientToAdd.getPrename1());
             query.setString(3, clientToAdd.getPrename2());
-            query.setInt(4, clientToAdd.getCode());
+            query.setBoolean(4, clientToAdd.isVip());
             query.executeUpdate();
            
         } catch (SQLException e){
