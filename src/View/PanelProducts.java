@@ -179,12 +179,11 @@ public class PanelProducts extends javax.swing.JPanel {
     }//GEN-LAST:event_productsListMouseClicked
 
     private void addProductAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductAction
-        if(Double.parseDouble(textField_price.getText())>0 && textfield_name.getText().length()<30){
+        
+        if(controller.checkValidPrice()&& controller.checkValidName()){
             controller.addProduct();
             JOptionPane.showMessageDialog(this, "Producto añadido.");
-        }
-            //JOptionPane.showMessageDialog(this, "No se ha podido añadir el producto.");
-        
+        }        
     }//GEN-LAST:event_addProductAction
 
     private void editProductAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProductAction
@@ -201,21 +200,13 @@ public class PanelProducts extends javax.swing.JPanel {
     }//GEN-LAST:event_editProductAction
 
     private void deleteProductAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductAction
-        if(getTable().getSelectedRowCount()==1){
-            try{
-                controller.deleteProduct();
-                JOptionPane.showMessageDialog(this, "Producto borrado.");
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(
-                        this, "No se ha podido borrar el producto.");
-            }
+        
+        if(getTable().getSelectedRowCount()!=1){
+            JOptionPane.showMessageDialog(
+                    this, "Por favor, seleccione un producto que eliminar.");                    
         }else{
-            if (getTable().getRowCount()==0){
-                JOptionPane.showMessageDialog(this, "La tabla está vacia.");
-            } else{
-              JOptionPane.showMessageDialog(
-                      this, "Por favor, seleccione un producto que eliminar.");
-            }
+            controller.deleteProduct();
+            JOptionPane.showMessageDialog(this, "Producto eliminado.");
         }
     }//GEN-LAST:event_deleteProductAction
 

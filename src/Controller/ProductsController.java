@@ -78,22 +78,24 @@ public class ProductsController {
         dbConnector.newProduct(newProduct);
         refreshTable();
     }
+    
+    //Returns ID of selected row
     public int getSelectedID(){
 
         return Integer.parseInt(panel.getTable().getValueAt(
                 panel.getTable().getSelectedRow(), 0).toString());
     }
     
-    //Checks if price has a valid number (and a number)
+    //Checks if price has a valid number
     public boolean checkValidPrice(){
         try{
             double priceForChecking = Double.parseDouble(
                 panel.getTextField_price().getText());
 
-            if(priceForChecking<0){
+            if(priceForChecking<=0){
                 
                 JOptionPane.showMessageDialog(
-                    panel, "Precio introducido menor que cero");
+                    panel, "Introduzca un precio mayor que cero");
                 return false;
                 
             }else if(priceForChecking>999){
@@ -113,8 +115,28 @@ public class ProductsController {
         }
     }
 
+    //Checks if name introduces is valid
     public boolean checkValidName() {
         
-        return true;
+      try{
+        String nameForChecking = panel.getTextfield_name().getText();
+        
+        if(nameForChecking.length()>30){
+            JOptionPane.showMessageDialog(panel,
+                    "El nombre introducido es demasiado largo");        
+            return false;   
+        }else if(nameForChecking.length()<3){
+            
+            JOptionPane.showMessageDialog(panel,
+                    "El nombre del producto no puede ser menor de 3 carácteres");
+            return false;
+        }else{
+            return true;
+        }
+      }catch(Exception e){
+          JOptionPane.showMessageDialog(panel,
+                    "Rellene la casilla de nombre");
+          return false;
+      }
     }
 }
