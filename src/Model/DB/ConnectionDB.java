@@ -8,7 +8,7 @@ import java.sql.SQLException;
  *
  * @author alvar
  */
-public class Conexion {
+public class ConnectionDB {
     
     static final String DRIVER_JDBC="com.mysql.jdbc.Driver";
     static final String DB_URL="jdbc:mysql://localhost:3306/seas_javafinal";
@@ -16,7 +16,7 @@ public class Conexion {
     static final String PASS="";
     private Connection conn;
     
-    public Conexion() {
+    public ConnectionDB() {
         conn=null;
         try{
             Class.forName(DRIVER_JDBC);
@@ -28,7 +28,7 @@ public class Conexion {
         }  
     }
     
-    public Connection getConexion(){
+    public Connection getConnection(){
         return conn;
     }
     

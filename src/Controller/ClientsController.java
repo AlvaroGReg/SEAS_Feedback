@@ -5,15 +5,12 @@
  */
 package Controller;
 
-import Model.DB.Conexion;
+import Model.ClientModel;
+import Model.Converter.ClientDBConnector;
 import View.PanelClients;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,9 +20,7 @@ import javax.swing.table.DefaultTableModel;
 public class ClientsController {
     
     private PanelClients panel;
-    private DefaultTableModel tabla;
-    private Connection conexion;
-    private String id;
+    private ClientDBConnector dbConnector;
     
     public ClientsController(PanelClients panel){
         this.panel=panel;
@@ -33,178 +28,166 @@ public class ClientsController {
     
     // Refresh table data
     public void refreshTable(){
-        try{    
-        tabla = new DefaultTableModel(new String[]{
-            "ID", "Nombre", "1ºApellido", "2ºApellido"}, 0);
-        panel.getTable().setModel(tabla);
+        
+        dbConnector = new ClientDBConnector();
+        DefaultTableModel tableModel = new DefaultTableModel(new String[]{
+            "ID", "Nombre", "Apellido", "Apellido2", "PIN"}, 0);
+        panel.getTable().setModel(tableModel);
         panel.getScrPanel().setViewportView(panel.getTable());
-        
-        Conexion connect = new Conexion();
-        conexion = connect.getConexion();
-        Statement con = conexion.createStatement();
-        ResultSet rs = con.executeQuery("SELECT * FROM Clientes");
-        
-        String nombre="";
-        String ape1="";
-        String ape2="";
-        
-        while(rs.next()){
-            
-            id=rs.getString(1);
-            nombre=rs.getString(2);
-            ape1=rs.getString(3);
-            ape2=rs.getString(4);
-            
-            Vector filaTabla = new Vector();
-            filaTabla.add(id);
-            filaTabla.add(nombre);
-            filaTabla.add(ape1);
-            filaTabla.add(ape2);
-            
-            tabla.addRow(filaTabla);
-        }
-        
-       }catch(SQLException e){
-            e.printStackTrace();
-        } finally {
-            try{
-                if (conexion != null){
-                    conexion.close();
-                }
-            } catch (SQLException se){
-                se.printStackTrace();
-            }
+                
+        for(int x = 0; x<dbConnector.getClientsList().size(); x++){
+            Vector tableRow = new Vector();
+            tableRow.add(dbConnector.getClientsList().get(x).getId());
+            tableRow.add(dbConnector.getClientsList().get(x).getName());
+            tableRow.add(dbConnector.getClientsList().get(x).getPrename1());
+            tableRow.add(dbConnector.getClientsList().get(x).getPrename2());
+            tableRow.add(dbConnector.getClientsList().get(x).getCode());
+            tableModel.addRow(tableRow);
         }
     }
     
     //Shows data from selected row in EditTextField
-    public void getSelectedRow(){
+    public void writeSelectedRow(){
         
-        DefaultTableModel tblModel=(DefaultTableModel) panel.getTable().getModel();
-        String tblNombre=tblModel.getValueAt(panel.getTable().getSelectedRow(), 1).toString();
-        String tblApe1=tblModel.getValueAt(panel.getTable().getSelectedRow(), 2).toString();
-        String tblApe2=tblModel.getValueAt(panel.getTable().getSelectedRow(), 3).toString();
+        DefaultTableModel tableModel =(DefaultTableModel) panel.getTable().getModel(); 
         
-        panel.getClientName().setText(tblNombre);
-        panel.getPrename1().setText(tblApe1);
-        panel.getPrename2().setText(tblApe2);
+        panel.getTextView_clientName().setText(
+                tableModel.getValueAt(panel.getTable().getSelectedRow(), 1).toString());
+        panel.getTextView_prename1().setText(
+                tableModel.getValueAt(panel.getTable().getSelectedRow(), 2).toString());
+        panel.getTextView_prename2().setText(
+                tableModel.getValueAt(panel.getTable().getSelectedRow(), 3).toString());
+        panel.getTextView_code().setText(
+                String.valueOf(tableModel.getValueAt(panel.getTable().getSelectedRow(), 4)));
     }
     
-    
-    //Takes darta from EditText, updates DB and refresh table   
+    //Takes data from EditText, updates DB and refresh table   
     public void editClient(){
-        
-        int idcliente=Integer.parseInt(id);
-        DefaultTableModel tblModel=(DefaultTableModel) panel.getTable().getModel();
-        
-        if(panel.getTable().getSelectedRowCount()==1){
             
-            String nombre=panel.getClientName().getText();
-            String apellido_1=panel.getPrename1().getText();
-            String apellido_2=panel.getPrename2().getText();
+        if(panel.getTextView_code().getText()!=null){
             
-            try{
-                Conexion conect=new Conexion();
-                conexion=conect.getConexion();
-                PreparedStatement consulta;
-                consulta=conexion.prepareStatement("UPDATE Clientes SET nombre=?, Apellido1=?, Apellido2=? WHERE id_cliente="+ idcliente);
-                consulta.setString(1, nombre);
-                consulta.setString(2, apellido_1);
-                consulta.setString(3, apellido_2);
-                consulta.executeUpdate();
-            } catch (SQLException e){
-                e.printStackTrace();
-            } finally {
-                try{
-                    if (conexion != null){
-                        conexion.close();
-                    }
-                } catch (SQLException se){
-                    se.printStackTrace();
-                }
-            }
-            //NOT NECCESARY BUT EARLY TO ERASE
-            tblModel.setValueAt(nombre, panel.getTable().getSelectedRow(), 1);
-            tblModel.setValueAt(apellido_1, panel.getTable().getSelectedRow(), 2);
-            tblModel.setValueAt(apellido_2, panel.getTable().getSelectedRow(), 3);
+            ClientModel editedClient = new ClientModel(
+            getSelectedID(),        
+            panel.getTextView_clientName().getText(),
+            panel.getTextView_prename1().getText(),
+            panel.getTextView_prename2().getText(),
+            Integer.parseInt(panel.getTextView_code().getText()));
             
-            JOptionPane.showMessageDialog(panel, "Modificación Realizada");
+            dbConnector.editClient(editedClient);                              
             refreshTable();
-        } else{
-            if (panel.getTable().getRowCount()==0){
-                JOptionPane.showMessageDialog(panel, "La tabla esta vacia.");
-            } else{
-              JOptionPane.showMessageDialog(panel, "Por favor, seleccione una fila a modificar");
-            }
-        }
-    }
-    
-    // Erases selected data from DB and table
-    public void eraseClient(){
-        
-        int idcliente=Integer.parseInt(id);
-        DefaultTableModel tblModel=(DefaultTableModel) panel.getTable().getModel();
-        if(panel.getTable().getSelectedRowCount()==1){
-        try{
-            Conexion conect=new Conexion();
-            conexion=conect.getConexion();
-            PreparedStatement consulta;
-            consulta=conexion.prepareStatement("DELETE FROM Clientes WHERE id_cliente="+ idcliente);
-            consulta.executeUpdate();
-        } catch (SQLException e){
-            e.printStackTrace();
-        } finally {
-            try{
-                if (conexion != null){
-                    conexion.close();
-                }
-            } catch (SQLException se){
-                se.printStackTrace();
-            }
-        }
-            JOptionPane.showMessageDialog(panel, "Usuario eliminado");
+            
         }else{
-            if (panel.getTable().getRowCount()==0){
-                JOptionPane.showMessageDialog(panel, "La tabla esta vacia.");
-            } else{
-              JOptionPane.showMessageDialog(panel, "Por favor, seleccione una fila a modificar");
-            }
+            
+            ClientModel editedClient = new ClientModel(
+            getSelectedID(),        
+            panel.getTextView_clientName().getText(),
+            panel.getTextView_prename1().getText(),
+            panel.getTextView_prename2().getText());
+
+            dbConnector.editClient(editedClient);                              
+            refreshTable();                        
         }
-        
-        tblModel.removeRow(panel.getTable().getSelectedRow());
+    } 
+    
+    //Communicates to connector to delete an item
+    public void deleteClient(){        
+        dbConnector.deleteClient(getSelectedID());
+        refreshTable();
     }
     
-    // Sends new data to DB
-    public void newClient(String nombre, String apellido_1, String apellido_2){
+    // Sends new data from panel to connector
+    public void addProduct(){
         
-        try{            
-            Conexion conect=new Conexion();
-            conexion=conect.getConexion();
-            PreparedStatement consulta;
+        if(panel.getTextView_code().getText()!=null){
             
-            consulta=conexion.prepareStatement("INSERT INTO Clientes (nombre, apellido_1, apellido_2) VALUES (?,?,?)");
-            consulta.setString(1, nombre);
-            consulta.setString(2, apellido_1);
-            consulta.setString(3, apellido_2);
-            consulta.executeUpdate();
+            ClientModel clientToAdd = new ClientModel(        
+            panel.getTextView_clientName().getText(),
+            panel.getTextView_prename1().getText(),
+            panel.getTextView_prename2().getText(),
+            Integer.parseInt(panel.getTextView_code().getText()));
             
-            JOptionPane.showMessageDialog(panel, "Usuario añadido ");
+            dbConnector.newClient(clientToAdd);                              
             refreshTable();
             
-        } catch (SQLException e){
-            e.printStackTrace();
-        } catch (Exception e){
-            e.printStackTrace();
-        }finally {
+        }else{
             
-            try{
-                if (conexion != null){
-                    conexion.close();
-                }
-            } catch (SQLException se){
-                se.printStackTrace();
+            ClientModel clientToAdd = new ClientModel(        
+            panel.getTextView_clientName().getText(),
+            panel.getTextView_prename1().getText(),
+            panel.getTextView_prename2().getText());
+
+            dbConnector.newClient(clientToAdd);                              
+            refreshTable();                        
+        }             
+    }
+    
+    //Returns ID of selected row
+    public int getSelectedID(){
+        return Integer.parseInt(panel.getTable().getValueAt(
+                panel.getTable().getSelectedRow(), 0).toString());
+    }
+    
+    //Checks if PIN has a valid number
+    public boolean checkValidPin(){
+        try{
+            int pinToCheck = Integer.parseInt(
+                panel.getTextView_code().getText());
+
+            if(pinToCheck<0){
+                
+                JOptionPane.showMessageDialog(
+                    panel, "Código erróneo, introduzca un número de 4 dígitos");
+                return false;
+                
+            }else if(pinToCheck>9999){
+                
+                JOptionPane.showMessageDialog(
+                    panel, "Código erróneo, introduzca un número de 4 dígitos");
+                return false;
+                
+            }else if(panel.getTextView_code().getText().length()!=4){
+                
+                JOptionPane.showMessageDialog(
+                    panel, "Código erróneo, introduzca un número de 4 dígitos");
+                return false;
+                
+            }else{  
+                
+                return true;
             }
+        }catch(Exception e){
+            
+            JOptionPane.showMessageDialog(panel,
+                    "Código erróneo, introduzca un número de 4 dígitos");        
+            return false;
         }
+    }
+
+    //Checks if name/prename String input is valid
+    public boolean checkValidString(JTextField textFieldToCheck) {
         
+      try{
+        String stringForChecking = textFieldToCheck.getText();
+        
+        if(stringForChecking.length()>30){
+            
+            JOptionPane.showMessageDialog(panel,
+                    "Nombre y/o apellido introducido es demasiado largo");        
+            return false;  
+            
+        }else if(stringForChecking.length()<2){
+            
+            JOptionPane.showMessageDialog(panel,
+                    "El nombre/apellido no puede ser menor de 2 carácteres");
+            return false;
+            
+        }else{
+            return true;
+        }
+      }catch(Exception e){
+          JOptionPane.showMessageDialog(panel,
+                    "Es obligatorio introducir nombre y apellidos");
+          return false;
+      }
     }
 }

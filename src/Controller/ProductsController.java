@@ -115,7 +115,7 @@ public class ProductsController {
         }
     }
 
-    //Checks if name introduces is valid
+    //Checks if name input is valid
     public boolean checkValidName() {
         
       try{

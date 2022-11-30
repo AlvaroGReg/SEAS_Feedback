@@ -1,7 +1,11 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Model.Converter;
 
+import Model.ClientModel;
 import Model.DB.ConnectionDB;
-import Model.ProductModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,26 +19,27 @@ import java.util.logging.Logger;
  *
  * @author alvar
  */
-public class ProductDBConnector {
+public class ClientDBConnector {
     
     private Connection connection;
     
-    //Returns an ArrayList filled with data inside "productos" table
-    public ArrayList<ProductModel> getProductsList(){
+    //Returns an ArrayList filled with data inside "clientes" table
+    public ArrayList<ClientModel> getClientsList(){
         
-        ArrayList<ProductModel> productsList = new ArrayList();
+        ArrayList<ClientModel> clientsList = new ArrayList();
         
         try {
             ConnectionDB connect = new ConnectionDB();
             connection = connect.getConnection();
             Statement con;
             con = connection.createStatement();
-            ResultSet rs = con.executeQuery("SELECT * FROM productos");
+            ResultSet rs = con.executeQuery("SELECT * FROM clientes");
             
             while(rs.next()){
-                ProductModel nextProduct = new ProductModel(
-                        rs.getInt(1), rs.getString(2), rs.getDouble(3));
-                productsList.add(nextProduct);
+                ClientModel nextClient = new ClientModel(
+                        rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getInt(5));
+                clientsList.add(nextClient);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductDBConnector.class.getName()).log(
@@ -48,11 +53,11 @@ public class ProductDBConnector {
                 se.printStackTrace();
             }
         }
-        return productsList;
-    }
+        return clientsList;
+    }    
     
     //Updates data in table "productos"
-    public void editProduct(ProductModel product){
+    public void editClient(ClientModel clientToEdit){
         
         try {
            
@@ -61,10 +66,13 @@ public class ProductDBConnector {
             PreparedStatement query;
             
             query = connection.prepareStatement(
-                    "UPDATE productos SET nombre=?, precio=? "
-                            + "WHERE id_producto=" + product.getId());
-            query.setString(1, product.getName());
-            query.setDouble(2, product.getPrice());
+                    "UPDATE clientes SET nombre=?, apellido_1=?, apellido_2=?, clave_cliente=? "
+                            + "WHERE id_cliente=" + clientToEdit.getId());
+            
+            query.setString(1, clientToEdit.getName());
+            query.setString(2, clientToEdit.getPrename1());
+            query.setString(3, clientToEdit.getPrename2());
+            query.setInt(4, clientToEdit.getCode());
             query.executeUpdate();
             
     } catch (SQLException ex) {
@@ -80,16 +88,16 @@ public class ProductDBConnector {
             }
         }
     }
-    
+
     // Erases selected data from DB and table
-    public void deleteProduct(int id_product){
+    public void deleteClient(int id_client){
         
         try{
             ConnectionDB conect=new ConnectionDB();
             connection=conect.getConnection();
             PreparedStatement consulta;
             
-            consulta=connection.prepareStatement("DELETE FROM productos WHERE id_producto="+ id_product);
+            consulta=connection.prepareStatement("DELETE FROM clientes WHERE id_cliente="+ id_client);
             consulta.executeUpdate();
             
         } catch (SQLException e){
@@ -103,19 +111,22 @@ public class ProductDBConnector {
                 se.printStackTrace();
             }
         }        
-    }
-
+    }   
+    
      // Sends new data to DB
-    public void newProduct(ProductModel product){
+    public void newClient(ClientModel clientToAdd){
         
         try{            
             ConnectionDB conect = new ConnectionDB();
             connection = conect.getConnection();
             PreparedStatement query;
             
-            query = connection.prepareStatement("INSERT INTO productos (nombre, precio) VALUES (?,?)");            
-            query.setString(1, product.getName());
-            query.setDouble(2, product.getPrice());
+            query = connection.prepareStatement(
+                    "INSERT INTO clientes (nombre, apellido_1, apellido_2, clave_cliente) VALUES (?,?,?,?)");            
+            query.setString(1, clientToAdd.getName());
+            query.setString(2, clientToAdd.getPrename1());
+            query.setString(3, clientToAdd.getPrename2());
+            query.setInt(4, clientToAdd.getCode());
             query.executeUpdate();
            
         } catch (SQLException e){
@@ -132,5 +143,5 @@ public class ProductDBConnector {
                 se.printStackTrace();
             }
         }
-    }
+    }    
 }
