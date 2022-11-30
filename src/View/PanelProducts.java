@@ -179,30 +179,24 @@ public class PanelProducts extends javax.swing.JPanel {
     }//GEN-LAST:event_productsListMouseClicked
 
     private void addProductAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductAction
-        try {
+        if(Double.parseDouble(textField_price.getText())>0 && textfield_name.getText().length()<30){
             controller.addProduct();
             JOptionPane.showMessageDialog(this, "Producto añadido.");
-        } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(
-                    this, "No se ha podido añadir el producto.");
         }
+            //JOptionPane.showMessageDialog(this, "No se ha podido añadir el producto.");
+        
     }//GEN-LAST:event_addProductAction
 
     private void editProductAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProductAction
         
-        if(getTable().getSelectedRowCount()==1){
-
-                controller.editProduct();
-                JOptionPane.showMessageDialog(this, "Producto editado.");
-                //JOptionPane.showMessageDialog(this, "No se ha podido editar el producto.");           
-
-        }else{
-            if (getTable().getRowCount()==0){
-                JOptionPane.showMessageDialog(this, "La tabla esta vacia.");
-            } else{
-              JOptionPane.showMessageDialog(this,
-                      "Por favor, seleccione una fila a modificar.");
-            }
+        if(getTable().getSelectedRowCount()!=1){
+            
+            JOptionPane.showMessageDialog(this,
+                    "Seleccione el producto que quiere editar.");          
+        }else if(controller.checkValidPrice() && controller.checkValidName()){
+            
+            controller.editProduct();
+            JOptionPane.showMessageDialog(this, "Producto editado.");            
         }
     }//GEN-LAST:event_editProductAction
 

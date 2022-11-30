@@ -8,6 +8,7 @@ import Model.Converter.ProductDBConnector;
 import Model.ProductModel;
 import View.PanelProducts;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -57,7 +58,7 @@ public class ProductsController {
             getSelectedID(),        
             panel.getTextfield_name().getText(),
             Double.parseDouble(panel.getTextField_price().getText()));
-            
+
             dbConnector.editProduct(editedProduct);                              
             refreshTable();       
     } 
@@ -81,5 +82,39 @@ public class ProductsController {
 
         return Integer.parseInt(panel.getTable().getValueAt(
                 panel.getTable().getSelectedRow(), 0).toString());
+    }
+    
+    //Checks if price has a valid number (and a number)
+    public boolean checkValidPrice(){
+        try{
+            double priceForChecking = Double.parseDouble(
+                panel.getTextField_price().getText());
+
+            if(priceForChecking<0){
+                
+                JOptionPane.showMessageDialog(
+                    panel, "Precio introducido menor que cero");
+                return false;
+                
+            }else if(priceForChecking>999){
+                
+                JOptionPane.showMessageDialog(
+                    panel, "Precio introducido demasiado alto (max.999)");
+                return false;
+            }else{  
+                
+                return true;
+            }
+        }catch(Exception e){
+            
+            JOptionPane.showMessageDialog(panel,
+                    "Introduzca un valor numérico en la casilla de precio");        
+            return false;
+        }
+    }
+
+    public boolean checkValidName() {
+        
+        return true;
     }
 }
