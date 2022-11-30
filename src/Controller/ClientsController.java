@@ -81,7 +81,6 @@ public class ClientsController {
     public void getSelectedRow(){
         
         DefaultTableModel tblModel=(DefaultTableModel) panel.getTable().getModel();
-        id=tblModel.getValueAt(panel.getTable().getSelectedRow(), 0).toString();
         String tblNombre=tblModel.getValueAt(panel.getTable().getSelectedRow(), 1).toString();
         String tblApe1=tblModel.getValueAt(panel.getTable().getSelectedRow(), 2).toString();
         String tblApe2=tblModel.getValueAt(panel.getTable().getSelectedRow(), 3).toString();
@@ -182,6 +181,7 @@ public class ClientsController {
             Conexion conect=new Conexion();
             conexion=conect.getConexion();
             PreparedStatement consulta;
+            
             consulta=conexion.prepareStatement("INSERT INTO Clientes (nombre, apellido_1, apellido_2) VALUES (?,?,?)");
             consulta.setString(1, nombre);
             consulta.setString(2, apellido_1);

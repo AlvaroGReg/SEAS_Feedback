@@ -14,15 +14,15 @@ public class PanelClients extends javax.swing.JPanel {
 
     
     private FrameMain frame;
-    private ClientsController acciones;
+    private ClientsController controller;
     /**
      * Creates new form EditClientes
      */
     public PanelClients(FrameMain frame) {
         this.frame=frame;
         initComponents();
-        acciones=new ClientsController(this);
-        acciones.refreshTable();
+        controller=new ClientsController(this);
+        controller.refreshTable();
     }
 
     public JTable getTable(){
@@ -164,19 +164,19 @@ public class PanelClients extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void editClientAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editClientAction
-       acciones.editClient();
+       controller.editClient();
     }//GEN-LAST:event_editClientAction
 
     private void ListCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListCliMouseClicked
-       acciones.getSelectedRow();
+       controller.getSelectedRow();
     }//GEN-LAST:event_ListCliMouseClicked
 
     private void newClientAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newClientAction
-        acciones.newClient(txtName.getText(), txtPrename1.getText(), txtPrename2.getText());
+        controller.newClient(txtName.getText(), txtPrename1.getText(), txtPrename2.getText());
     }//GEN-LAST:event_newClientAction
 
     private void eraseClientAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eraseClientAction
-        acciones.eraseClient();
+        controller.eraseClient();
     }//GEN-LAST:event_eraseClientAction
 
 

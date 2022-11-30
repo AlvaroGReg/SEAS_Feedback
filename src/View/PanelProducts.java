@@ -6,7 +6,9 @@ package View;
 
 import Controller.ProductsController;
 import Main.FrameMain;
+import java.awt.HeadlessException;
 import java.awt.TextField;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -29,8 +31,8 @@ public class PanelProducts extends javax.swing.JPanel {
         controller.refreshTable();
     }
 
-    public JTable getProductsTable() {
-        return ProductsList;
+    public JTable getTable() {
+        return productsList;
     }
     
     public JScrollPane getjScrollPane2() {
@@ -56,10 +58,10 @@ public class PanelProducts extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        ProductsList = new javax.swing.JTable();
+        productsList = new javax.swing.JTable();
         button_addProduct = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        button_editProduct = new javax.swing.JButton();
+        button_deleteProduct = new javax.swing.JButton();
         textfield_name = new java.awt.TextField();
         textField_price = new java.awt.TextField();
         jLabel2 = new javax.swing.JLabel();
@@ -67,7 +69,7 @@ public class PanelProducts extends javax.swing.JPanel {
 
         jLabel1.setText("Productos");
 
-        ProductsList.setModel(new javax.swing.table.DefaultTableModel(
+        productsList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -83,12 +85,12 @@ public class PanelProducts extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        ProductsList.addMouseListener(new java.awt.event.MouseAdapter() {
+        productsList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ProductsListMouseClicked(evt);
+                productsListMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(ProductsList);
+        jScrollPane2.setViewportView(productsList);
 
         button_addProduct.setText("Añadir Producto");
         button_addProduct.addActionListener(new java.awt.event.ActionListener() {
@@ -97,15 +99,15 @@ public class PanelProducts extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("Editar Producto");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        button_editProduct.setText("Editar Producto");
+        button_editProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editProductAction(evt);
             }
         });
 
-        jButton3.setText("Borrar Producto");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        button_deleteProduct.setText("Borrar Producto");
+        button_deleteProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteProductAction(evt);
             }
@@ -133,9 +135,9 @@ public class PanelProducts extends javax.swing.JPanel {
                 .addGap(68, 68, 68)
                 .addComponent(button_addProduct)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(button_editProduct)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(button_deleteProduct)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -166,38 +168,73 @@ public class PanelProducts extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(button_addProduct)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(button_editProduct)
+                    .addComponent(button_deleteProduct))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ProductsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductsListMouseClicked
-        controller.getSelectedRow();
-    }//GEN-LAST:event_ProductsListMouseClicked
+    private void productsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productsListMouseClicked
+        controller.writeSelectedRow();
+    }//GEN-LAST:event_productsListMouseClicked
 
     private void addProductAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductAction
-        // TODO add your handling code here:
+        try {
+            controller.addProduct();
+            JOptionPane.showMessageDialog(this, "Producto añadido.");
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(
+                    this, "No se ha podido añadir el producto.");
+        }
     }//GEN-LAST:event_addProductAction
 
     private void editProductAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProductAction
-        controller.editClient();
+        
+        if(getTable().getSelectedRowCount()==1){
+
+                controller.editProduct();
+                JOptionPane.showMessageDialog(this, "Producto editado.");
+                //JOptionPane.showMessageDialog(this, "No se ha podido editar el producto.");           
+
+        }else{
+            if (getTable().getRowCount()==0){
+                JOptionPane.showMessageDialog(this, "La tabla esta vacia.");
+            } else{
+              JOptionPane.showMessageDialog(this,
+                      "Por favor, seleccione una fila a modificar.");
+            }
+        }
     }//GEN-LAST:event_editProductAction
 
     private void deleteProductAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductAction
-        // TODO add your handling code here:
+        if(getTable().getSelectedRowCount()==1){
+            try{
+                controller.deleteProduct();
+                JOptionPane.showMessageDialog(this, "Producto borrado.");
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(
+                        this, "No se ha podido borrar el producto.");
+            }
+        }else{
+            if (getTable().getRowCount()==0){
+                JOptionPane.showMessageDialog(this, "La tabla está vacia.");
+            } else{
+              JOptionPane.showMessageDialog(
+                      this, "Por favor, seleccione un producto que eliminar.");
+            }
+        }
     }//GEN-LAST:event_deleteProductAction
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable ProductsList;
     private javax.swing.JButton button_addProduct;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton button_deleteProduct;
+    private javax.swing.JButton button_editProduct;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable productsList;
     private java.awt.TextField textField_price;
     private java.awt.TextField textfield_name;
     // End of variables declaration//GEN-END:variables

@@ -4,11 +4,10 @@
  */
 package Controller;
 
-import Model.Converter.ProductConverter;
-import Model.Product;
+import Model.Converter.ProductDBConnector;
+import Model.ProductModel;
 import View.PanelProducts;
 import java.util.Vector;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,7 +18,7 @@ public class ProductsController {
     
     private PanelProducts panel;
     private DefaultTableModel table;
-    private ProductConverter converter;
+    private ProductDBConnector dbConnector;
     
     public ProductsController (PanelProducts panel){
         this.panel=panel;
@@ -28,54 +27,59 @@ public class ProductsController {
     // Refresh table data
     public void refreshTable(){
         
-        converter = new ProductConverter();
+        dbConnector = new ProductDBConnector();
         table = new DefaultTableModel(new String[]{
             "ID", "Nombre", "Precio"}, 0);
-        panel.getProductsTable().setModel(table);
-        panel.getjScrollPane2().setViewportView(panel.getProductsTable());
+        panel.getTable().setModel(table);
+        panel.getjScrollPane2().setViewportView(panel.getTable());
                 
-        for(int x = 0; x<converter.getProductsList().size(); x++){
+        for(int x = 0; x<dbConnector.getProductsList().size(); x++){
             Vector tableRow = new Vector();
-            tableRow.add(converter.getProductsList().get(x).getId());
-            tableRow.add(converter.getProductsList().get(x).getName());
-            tableRow.add(converter.getProductsList().get(x).getPrice());
+            tableRow.add(dbConnector.getProductsList().get(x).getId());
+            tableRow.add(dbConnector.getProductsList().get(x).getName());
+            tableRow.add(dbConnector.getProductsList().get(x).getPrice());
             table.addRow(tableRow);
         }
     }
     
     //Shows data from selected row in EditTextField
-    public void getSelectedRow(){
+    public void writeSelectedRow(){
         
-        DefaultTableModel tableModel=(DefaultTableModel) panel.getProductsTable().getModel();
-        
-        String name = tableModel.getValueAt(panel.getProductsTable().getSelectedRow(), 1).toString();
-        double price = (double) tableModel.getValueAt(panel.getProductsTable().getSelectedRow(), 2);
-        
-        panel.getTextfield_name().setText(name);
-        panel.getTextField_price().setText(String.valueOf(price));
+        DefaultTableModel tableModel=(DefaultTableModel) panel.getTable().getModel();        
+        panel.getTextfield_name().setText(tableModel.getValueAt(panel.getTable().getSelectedRow(), 1).toString());
+        panel.getTextField_price().setText(String.valueOf(tableModel.getValueAt(panel.getTable().getSelectedRow(), 2)));
     }
     
     //Takes data from EditText, updates DB and refresh table   
-    public void editClient(){
-                
-        if(panel.getProductsTable().getSelectedRowCount()==1){
+    public void editProduct(){
+                 
+            ProductModel editedProduct = new ProductModel(
+            getSelectedID(),        
+            panel.getTextfield_name().getText(),
+            Double.parseDouble(panel.getTextField_price().getText()));
             
-            Product editedProduct = new Product(
-            (int) panel.getProductsTable().getValueAt(panel.getProductsTable().getSelectedRow(),1),        
-            panel.getTextfield_name().toString(),
-            Double.parseDouble(panel.getTextField_price().toString()));
-            
-            converter.editProduct(editedProduct);                   
-            
-            JOptionPane.showMessageDialog(panel, "Modificación Realizada");
-            refreshTable();
-        } else{
-            if (panel.getProductsTable().getRowCount()==0){
-                JOptionPane.showMessageDialog(panel, "La tabla esta vacia.");
-            } else{
-              JOptionPane.showMessageDialog(panel,
-                      "Por favor, seleccione una fila a modificar");
-            }
-        }
+            dbConnector.editProduct(editedProduct);                              
+            refreshTable();       
     } 
+    
+    // Erases selected data from DB and table
+    public void deleteProduct(){        
+        dbConnector.deleteProduct(getSelectedID());
+        refreshTable();
+    }
+    
+    // Sends new data from panel to converter
+    public void addProduct(){
+        
+        ProductModel newProduct = new ProductModel(       
+        panel.getTextfield_name().getText(),
+        Double.parseDouble(panel.getTextField_price().getText()));                    
+        dbConnector.newProduct(newProduct);
+        refreshTable();
+    }
+    public int getSelectedID(){
+
+        return Integer.parseInt(panel.getTable().getValueAt(
+                panel.getTable().getSelectedRow(), 0).toString());
+    }
 }
