@@ -31,41 +31,141 @@ public class PanelNewSell extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        productsList = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        textField_totalPrice = new java.awt.TextField();
         jLabel2 = new javax.swing.JLabel();
+        button_buy = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        textField_totalPrice1 = new java.awt.TextField();
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Res/ic_caja.jpeg"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        jLabel1.setMinimumSize(new java.awt.Dimension(1, 1));
-        jLabel1.setPreferredSize(new java.awt.Dimension(20, 20));
+        productsList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        jLabel2.setText("Venta");
+            },
+            new String [] {
+                "Nombre", "Precio", "Cantidad"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        productsList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                productsListMouseClicked(evt);
+            }
+        });
+        productsList.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                productsListPropertyChange(evt);
+            }
+        });
+        jScrollPane2.setViewportView(productsList);
+
+        jLabel1.setText("Precio total");
+
+        textField_totalPrice.setEditable(false);
+        textField_totalPrice.setMaximumSize(new java.awt.Dimension(200, 20));
+        textField_totalPrice.setMinimumSize(new java.awt.Dimension(120, 20));
+        textField_totalPrice.setPreferredSize(new java.awt.Dimension(120, 20));
+
+        jLabel2.setText("Confirmar compra");
+
+        button_buy.setText("Aceptar");
+        button_buy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirm_buy(evt);
+            }
+        });
+
+        jLabel3.setText("Teléfono comprador");
+
+        textField_totalPrice1.setEditable(false);
+        textField_totalPrice1.setMaximumSize(new java.awt.Dimension(200, 20));
+        textField_totalPrice1.setMinimumSize(new java.awt.Dimension(120, 20));
+        textField_totalPrice1.setPreferredSize(new java.awt.Dimension(120, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addContainerGap(668, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(textField_totalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(button_buy)
+                                    .addComponent(textField_totalPrice1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(143, 143, 143))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(86, 86, 86)
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(textField_totalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(textField_totalPrice1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(button_buy, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addContainerGap(438, Short.MAX_VALUE))
+                .addContainerGap(189, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void productsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productsListMouseClicked
+        //controller.writeSelectedRow();
+    }//GEN-LAST:event_productsListMouseClicked
+
+    private void productsListPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_productsListPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_productsListPropertyChange
+
+    private void confirm_buy(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirm_buy
+        // TODO add your handling code here:
+    }//GEN-LAST:event_confirm_buy
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton button_buy;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable productsList;
+    private java.awt.TextField textField_totalPrice;
+    private java.awt.TextField textField_totalPrice1;
     // End of variables declaration//GEN-END:variables
 }
