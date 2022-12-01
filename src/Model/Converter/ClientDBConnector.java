@@ -150,5 +150,34 @@ public class ClientDBConnector {
                 se.printStackTrace();
             }
         }
-    }    
+    }
+
+    //Searches client name and prename with their phone number
+    public String getName(int number){
+        
+        String namePrename = null;
+        
+        try {
+            ConnectionDB connect = new ConnectionDB();
+            connection = connect.getConnection();
+            Statement con;
+            con = connection.createStatement();
+            ResultSet rs = con.executeQuery("SELECT nombre, apellido FROM clientes WHERE telefono = " + number);
+            
+            namePrename = rs.getString("nombre") + rs.getString("apellido");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBConnector.class.getName()).log(
+                    Level.SEVERE, null, ex);
+        } finally {
+            try{
+                if (connection != null){
+                    connection.close();
+                }
+            } catch (SQLException se){
+                se.printStackTrace();
+            }
+        }
+        return namePrename;
+    }
 }

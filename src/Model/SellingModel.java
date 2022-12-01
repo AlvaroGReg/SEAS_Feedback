@@ -4,6 +4,8 @@
  */
 package Model;
 
+import java.sql.Date;
+
 /**
  *
  * @author alvar
@@ -11,26 +13,23 @@ package Model;
 public class SellingModel {
     
     int id_sell;
-    String date;
+    Date date;
     String buyerName;
     int buyerNumber;
-    String productsBought;
     double totalPrice;
 
-    public SellingModel(int id_sell, String date, String buyerName, int buyerNumber, String productsBought, double totalPrice) {
+    public SellingModel(int id_sell, Date date, String buyerName, int buyerNumber, double totalPrice) {
         this.id_sell = id_sell;
         this.date = date;
         this.buyerName = buyerName;
         this.buyerNumber = buyerNumber;
-        this.productsBought = productsBought;
         this.totalPrice = totalPrice;
     }
 
-    public SellingModel(String date, String buyerName, int buyerNumber, String productsBought, double totalPrice) {
+    public SellingModel(Date date, String buyerName, int buyerNumber, double totalPrice) {
         this.date = date;
         this.buyerName = buyerName;
         this.buyerNumber = buyerNumber;
-        this.productsBought = productsBought;
         this.totalPrice = totalPrice;
     }
 
@@ -38,7 +37,7 @@ public class SellingModel {
         return id_sell;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
@@ -48,10 +47,6 @@ public class SellingModel {
 
     public int getBuyerNumber() {
         return buyerNumber;
-    }
-
-    public String getProductsBought() {
-        return productsBought;
     }
 
     public double getTotalPrice() {

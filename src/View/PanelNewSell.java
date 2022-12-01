@@ -4,7 +4,11 @@
  */
 package View;
 
+import Controller.SellingsController;
 import Main.FrameMain;
+import java.awt.TextField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -13,13 +17,31 @@ import Main.FrameMain;
 public class PanelNewSell extends javax.swing.JPanel {
     
         private FrameMain frame;
-
+        private SellingsController controller;
     /**
      * Creates new form PanelVenta
      */
     public PanelNewSell(FrameMain frame) {
         this.frame=frame;
         initComponents();
+        controller=new SellingsController(this);
+        controller.refreshTable();
+    }
+
+    public JTable getProductsTable() {
+        return productsList;
+    }
+
+    public JScrollPane getjScrollPane2() {
+        return jScrollPane2;
+    }
+
+    public TextField getTextField_buyerNumber() {
+        return textField_buyerNumber;
+    }
+
+    public TextField getTextField_totalPrice() {
+        return textField_totalPrice;
     }
 
     /**
@@ -38,14 +60,15 @@ public class PanelNewSell extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         button_buy = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        textField_totalPrice1 = new java.awt.TextField();
+        textField_buyerNumber = new java.awt.TextField();
+        jLabel4 = new javax.swing.JLabel();
 
         productsList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Precio", "Cantidad"
+                "Nombre", "Precio", "Cantidad*"
             }
         ) {
             Class[] types = new Class [] {
@@ -93,17 +116,18 @@ public class PanelNewSell extends javax.swing.JPanel {
 
         jLabel3.setText("Teléfono comprador");
 
-        textField_totalPrice1.setEditable(false);
-        textField_totalPrice1.setMaximumSize(new java.awt.Dimension(200, 20));
-        textField_totalPrice1.setMinimumSize(new java.awt.Dimension(120, 20));
-        textField_totalPrice1.setPreferredSize(new java.awt.Dimension(120, 20));
+        textField_buyerNumber.setMaximumSize(new java.awt.Dimension(200, 20));
+        textField_buyerNumber.setMinimumSize(new java.awt.Dimension(120, 20));
+        textField_buyerNumber.setPreferredSize(new java.awt.Dimension(120, 20));
+
+        jLabel4.setText("Introduzca un número en cantidad* para seleccionarlo.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -121,13 +145,18 @@ public class PanelNewSell extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(button_buy)
-                                    .addComponent(textField_totalPrice1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(143, 143, 143))))
+                                    .addComponent(textField_buyerNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(143, 143, 143))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -136,12 +165,12 @@ public class PanelNewSell extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
-                    .addComponent(textField_totalPrice1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textField_buyerNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(button_buy, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addContainerGap(189, Short.MAX_VALUE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -163,9 +192,10 @@ public class PanelNewSell extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable productsList;
+    private java.awt.TextField textField_buyerNumber;
     private java.awt.TextField textField_totalPrice;
-    private java.awt.TextField textField_totalPrice1;
     // End of variables declaration//GEN-END:variables
 }
