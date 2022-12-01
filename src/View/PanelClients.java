@@ -47,6 +47,10 @@ public class PanelClients extends javax.swing.JPanel {
         return txtPrename2;
     }
 
+    public JTextField getTxtField_telephone() {
+        return txtField_telephone;
+    }
+    
     public JCheckBox getCheckBox_vip() {
         return checkBox_vip;
     }
@@ -71,6 +75,8 @@ public class PanelClients extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         checkBox_vip = new javax.swing.JCheckBox();
+        jLabel4 = new javax.swing.JLabel();
+        txtField_telephone = new javax.swing.JTextField();
 
         jLabel1.setText("Nombre");
 
@@ -90,11 +96,11 @@ public class PanelClients extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nombre", "Apellido", "Apellido 2", "VIP"
+                "Nombre", "Apellido", "Apellido 2", "Telephone", "VIP"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -124,6 +130,8 @@ public class PanelClients extends javax.swing.JPanel {
 
         checkBox_vip.setText("VIP");
 
+        jLabel4.setText("Teléfono");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -152,11 +160,17 @@ public class PanelClients extends javax.swing.JPanel {
                             .addComponent(txtPrename1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtField_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -176,12 +190,16 @@ public class PanelClients extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtPrename2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtField_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(Modificar)
                     .addComponent(jButton2))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -192,7 +210,8 @@ public class PanelClients extends javax.swing.JPanel {
                 "Seleccione el cliente que quiere editar.");              
         }else if(controller.checkValidString(txtName) &&
                 controller.checkValidString(txtPrename1) &&
-                controller.checkValidString(txtPrename2)){
+                controller.checkValidString(txtPrename2) &&
+                controller.checkValidPhoneNumber(txtField_telephone)){
             controller.editClient();
             JOptionPane.showMessageDialog(this, "Cliente editado.");
         }
@@ -205,7 +224,8 @@ public class PanelClients extends javax.swing.JPanel {
     private void newClientAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newClientAction
         if(controller.checkValidString(txtName) &&
                 controller.checkValidString(txtPrename1) &&
-                controller.checkValidString(txtPrename2)){
+                controller.checkValidString(txtPrename2) &&
+                controller.checkValidPhoneNumber(txtField_telephone)){
             controller.addProduct();
             JOptionPane.showMessageDialog(this, "Cliente añadido.");
         } 
@@ -231,7 +251,9 @@ public class PanelClients extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField txtField_telephone;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPrename1;
     private javax.swing.JTextField txtPrename2;

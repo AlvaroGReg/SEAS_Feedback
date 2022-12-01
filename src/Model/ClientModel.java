@@ -9,20 +9,23 @@ public class ClientModel {
     private String name;
     private String prename1;
     private String prename2;
+    private int telephone;
     private boolean vip;
 
-    public ClientModel(int id, String name, String prename1, String prename2, boolean vip) {
+    public ClientModel(int id, String name, String prename1, String prename2, int telephone, boolean vip) {
         this.id = id;
         this.name = name;
         this.prename1 = prename1;
         this.prename2 = prename2;
+        this.telephone = telephone;
         this.vip = vip;
     }
 
-    public ClientModel(String name, String prename1, String prename2, boolean vip) {
+    public ClientModel(String name, String prename1, String prename2, int telephone, boolean vip) {
         this.name = name;
         this.prename1 = prename1;
         this.prename2 = prename2;
+        this.telephone = telephone;
         this.vip = vip;
     }
 
@@ -54,6 +57,14 @@ public class ClientModel {
         this.prename2 = prename2;
     }
 
+    public int getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(int telephone) {
+        this.telephone = telephone;
+    }   
+
     public boolean isVip() {
         return vip;
     }
@@ -61,5 +72,4 @@ public class ClientModel {
     public void setVip(boolean vip) {
         this.vip = vip;
     }
-
 }

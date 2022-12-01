@@ -26,7 +26,7 @@ public class ClientsController {
         
         dbConnector = new ClientDBConnector();
         DefaultTableModel tableModel = new DefaultTableModel(new String[]{
-            "ID", "Nombre", "Apellido", "Apellido2", "PIN"}, 0);
+            "ID", "Nombre", "Apellido", "Apellido2", "Telephone", "PIN"}, 0);
         panel.getTable().setModel(tableModel);
         panel.getScrPanel().setViewportView(panel.getTable());
                 
@@ -36,6 +36,7 @@ public class ClientsController {
             tableRow.add(dbConnector.getClientsList().get(x).getName());
             tableRow.add(dbConnector.getClientsList().get(x).getPrename1());
             tableRow.add(dbConnector.getClientsList().get(x).getPrename2());
+            tableRow.add(dbConnector.getClientsList().get(x).getTelephone());
             tableRow.add(dbConnector.getClientsList().get(x).isVip());
             tableModel.addRow(tableRow);
         }
@@ -48,12 +49,18 @@ public class ClientsController {
         
         panel.getTextView_clientName().setText(
             tableModel.getValueAt(panel.getTable().getSelectedRow(), 1).toString());
+        
         panel.getTextView_prename1().setText(
             tableModel.getValueAt(panel.getTable().getSelectedRow(), 2).toString());
+        
         panel.getTextView_prename2().setText(
             tableModel.getValueAt(panel.getTable().getSelectedRow(), 3).toString());
+        
+        panel.getTxtField_telephone().setText(
+            tableModel.getValueAt(panel.getTable().getSelectedRow(), 4).toString());
+        
         panel.getCheckBox_vip().setSelected(
-            (boolean)tableModel.getValueAt(panel.getTable().getSelectedRow(), 4));
+            (boolean)tableModel.getValueAt(panel.getTable().getSelectedRow(), 5));
     }
     
     //Takes data from EditText, updates DB and refresh table   
@@ -65,6 +72,7 @@ public class ClientsController {
             panel.getTextView_clientName().getText(),
             panel.getTextView_prename1().getText(),
             panel.getTextView_prename2().getText(),
+            Integer.parseInt(panel.getTxtField_telephone().getText()),
             panel.getCheckBox_vip().isSelected());
             
             dbConnector.editClient(editedClient);                              
@@ -84,6 +92,7 @@ public class ClientsController {
             panel.getTextView_clientName().getText(),
             panel.getTextView_prename1().getText(),
             panel.getTextView_prename2().getText(),
+            Integer.parseInt(panel.getTxtField_telephone().getText()),
             panel.getCheckBox_vip().isSelected());
 
             dbConnector.newClient(clientToAdd);                              
@@ -123,4 +132,28 @@ public class ClientsController {
           return false;
       }
     }
+    //Checks if number is a positive number with correct length
+    public boolean checkValidPhoneNumber (JTextField textFieldToCheck){
+        try{
+            int numToCheck = Integer.parseInt(textFieldToCheck.getText());
+            
+            if(textFieldToCheck.getText().length()!=9){
+                
+                JOptionPane.showMessageDialog(panel,
+                    "Introduzca un número de teléfono válido.");
+                return false;                
+            }else if(numToCheck<0){
+                JOptionPane.showMessageDialog(panel,
+                    "Introduzca un número de teléfono válido.");
+                return false; 
+            }else{
+                return true;
+            }            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(panel,
+                    "Introduzca un número de teléfono válido.");
+            return false;
+        }
+    }
+    
 }

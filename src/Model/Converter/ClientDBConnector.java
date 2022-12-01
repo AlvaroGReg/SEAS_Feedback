@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model.Converter;
 
 import Model.ClientModel;
@@ -14,6 +10,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -38,7 +36,7 @@ public class ClientDBConnector {
             while(rs.next()){
                 ClientModel nextClient = new ClientModel(
                         rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getBoolean(5));
+                        rs.getString(4), rs.getInt(5),rs.getBoolean(6));
                 clientsList.add(nextClient);
             }
         } catch (SQLException ex) {
@@ -54,8 +52,8 @@ public class ClientDBConnector {
             }
         }
         return clientsList;
-    }    
-    
+    }
+   
     //Updates data in table "productos"
     public void editClient(ClientModel clientToEdit){
         
@@ -66,18 +64,23 @@ public class ClientDBConnector {
             PreparedStatement query;
             
             query = connection.prepareStatement(
-                    "UPDATE clientes SET nombre=?, apellido_1=?, apellido_2=?, vip=? "
+                    "UPDATE clientes SET nombre=?, apellido_1=?, apellido_2=?, telephone=?, vip=? "
                             + "WHERE id_cliente=" + clientToEdit.getId());
             
             query.setString(1, clientToEdit.getName());
             query.setString(2, clientToEdit.getPrename1());
             query.setString(3, clientToEdit.getPrename2());
-            query.setBoolean(4, clientToEdit.isVip());
+            query.setInt(4, clientToEdit.getTelephone());
+            query.setBoolean(5, clientToEdit.isVip());
             query.executeUpdate();
             
     } catch (SQLException ex) {
             Logger.getLogger(ProductDBConnector.class.getName()).log(
                     Level.SEVERE, null, ex);
+            if(ex.getErrorCode()==1062){
+                JOptionPane.showMessageDialog(new JFrame(), "Éste número de teléfono ya se ha asignado a una cuenta", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }
         } finally {
             try{
                 if (connection != null){
@@ -122,17 +125,21 @@ public class ClientDBConnector {
             PreparedStatement query;
             
             query = connection.prepareStatement(
-                    "INSERT INTO clientes (nombre, apellido_1, apellido_2, vip) VALUES (?,?,?,?)");            
+                    "INSERT INTO clientes (nombre, apellido_1, apellido_2, telefono, vip) VALUES (?,?,?,?,?)");            
             query.setString(1, clientToAdd.getName());
             query.setString(2, clientToAdd.getPrename1());
             query.setString(3, clientToAdd.getPrename2());
-            query.setBoolean(4, clientToAdd.isVip());
+            query.setInt(4, clientToAdd.getTelephone());
+            query.setBoolean(5, clientToAdd.isVip());
             query.executeUpdate();
            
         } catch (SQLException e){
             e.printStackTrace();
-        } catch (Exception e){
-            e.printStackTrace();
+            if(e.getErrorCode()==1062){
+                JOptionPane.showMessageDialog(new JFrame(), "Éste número de teléfono ya se ha asignado a una cuenta", "Error",
+        JOptionPane.ERROR_MESSAGE);
+            }    
+            
         }finally {
             
             try{
