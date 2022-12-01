@@ -162,12 +162,15 @@ public class ClientDBConnector {
             connection = connect.getConnection();
             Statement con;
             con = connection.createStatement();
-            ResultSet rs = con.executeQuery("SELECT nombre, apellido FROM clientes WHERE telefono = " + number);
+            ResultSet rs = con.executeQuery("SELECT * FROM clientes WHERE telefono = " + number);
             
-            namePrename = rs.getString("nombre") + rs.getString("apellido");
+            while(rs.next()){
+                namePrename = rs.getString("nombre") + " " + rs.getString("apellido_1");
+            }
+            
             
         } catch (SQLException ex) {
-            Logger.getLogger(ProductDBConnector.class.getName()).log(
+            Logger.getLogger(ClientDBConnector.class.getName()).log(
                     Level.SEVERE, null, ex);
         } finally {
             try{
@@ -179,5 +182,33 @@ public class ClientDBConnector {
             }
         }
         return namePrename;
+    }
+    
+    //Asks for VIP to apply discounts
+    public boolean checkVIP(int phone){
+        
+        boolean check = false;
+                try {
+            ConnectionDB connect = new ConnectionDB();
+            connection = connect.getConnection();
+            Statement con;
+            con = connection.createStatement();
+            ResultSet rs = con.executeQuery("SELECT vip FROM clientes WHERE telefono = " + phone);
+            
+            check = rs.getBoolean(5);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ClientDBConnector.class.getName()).log(
+                    Level.SEVERE, null, ex);
+        } finally {
+            try{
+                if (connection != null){
+                    connection.close();
+                }
+            } catch (SQLException se){
+                se.printStackTrace();
+            }
+        }
+        return check;               
     }
 }

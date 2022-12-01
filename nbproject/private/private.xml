@@ -12,15 +12,10 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/Model/Converter/SellingsDBConnector.java</file>
-            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/Model/SellingModel.java</file>
-            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/Model/DB/Productos.sql</file>
-            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/View/PanelClients.java</file>
-            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/Model/Converter/ProductDBConnector.java</file>
+            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/Controller/HistoryController.java</file>
+            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/View/PanelHistory.java</file>
             <file>file:/C:/Cursos/Java/SEAS_Feedback/src/Controller/SellingsController.java</file>
-            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/Model/Converter/ClientDBConnector.java</file>
             <file>file:/C:/Cursos/Java/SEAS_Feedback/src/View/PanelNewSell.java</file>
-            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/Controller/ClientsController.java</file>
         </group>
     </open-files>
 </project-private>

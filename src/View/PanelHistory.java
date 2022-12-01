@@ -4,7 +4,11 @@
  */
 package View;
 
+import Controller.HistoryController;
 import Main.FrameMain;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -13,6 +17,7 @@ import Main.FrameMain;
 public class PanelHistory extends javax.swing.JPanel {
     
         private FrameMain frame;
+        private HistoryController controller;
 
     /**
      * Creates new form PanelHistorial
@@ -20,7 +25,20 @@ public class PanelHistory extends javax.swing.JPanel {
     public PanelHistory(FrameMain frame) {
         this.frame=frame;
         initComponents();
+        controller = new HistoryController(this);
+        controller.refreshTable();
+        
+        
     }
+
+    public JScrollPane getjScrollPane2() {
+        return jScrollPane2;
+    }
+
+    public JTable getTable_history() {
+        return historyList;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,9 +50,10 @@ public class PanelHistory extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        productsList = new javax.swing.JTable();
+        historyList = new javax.swing.JTable();
+        button_deleteBuy = new javax.swing.JButton();
 
-        productsList.setModel(new javax.swing.table.DefaultTableModel(
+        historyList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -57,47 +76,73 @@ public class PanelHistory extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        productsList.addMouseListener(new java.awt.event.MouseAdapter() {
+        historyList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                productsListMouseClicked(evt);
+                historyListMouseClicked(evt);
             }
         });
-        productsList.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        historyList.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                productsListPropertyChange(evt);
+                historyListPropertyChange(evt);
             }
         });
-        jScrollPane2.setViewportView(productsList);
+        jScrollPane2.setViewportView(historyList);
+
+        button_deleteBuy.setText("Borrar factura");
+        button_deleteBuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_deleteBuyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(167, 167, 167)
+                .addComponent(button_deleteBuy)
+                .addContainerGap(179, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(button_deleteBuy)
+                .addContainerGap(106, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void productsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productsListMouseClicked
+    private void historyListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_historyListMouseClicked
         //controller.writeSelectedRow();
-    }//GEN-LAST:event_productsListMouseClicked
+    }//GEN-LAST:event_historyListMouseClicked
 
-    private void productsListPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_productsListPropertyChange
+    private void historyListPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_historyListPropertyChange
         // TODO add your handling code here:
-    }//GEN-LAST:event_productsListPropertyChange
+    }//GEN-LAST:event_historyListPropertyChange
+
+    private void button_deleteBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_deleteBuyActionPerformed
+       
+        if(getTable_history().getSelectedRowCount()!=1){   
+            JOptionPane.showMessageDialog(this,
+                "Seleccione una factura.");     
+        }else{
+            controller.deleteItem();
+            JOptionPane.showMessageDialog(this, "Factura borrada.");
+        }
+        
+    }//GEN-LAST:event_button_deleteBuyActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton button_deleteBuy;
+    private javax.swing.JTable historyList;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable productsList;
     // End of variables declaration//GEN-END:variables
 }

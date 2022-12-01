@@ -28,7 +28,7 @@ public class PanelClients extends javax.swing.JPanel {
     }
 
     public JTable getTable(){
-        return ListCli;
+        return table_clientsList;
     }
     
     public JScrollPane getScrPanel(){
@@ -71,7 +71,7 @@ public class PanelClients extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         Modificar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        ListCli = new javax.swing.JTable();
+        table_clientsList = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         checkBox_vip = new javax.swing.JCheckBox();
@@ -91,7 +91,7 @@ public class PanelClients extends javax.swing.JPanel {
             }
         });
 
-        ListCli.setModel(new javax.swing.table.DefaultTableModel(
+        table_clientsList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -114,12 +114,12 @@ public class PanelClients extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        ListCli.addMouseListener(new java.awt.event.MouseAdapter() {
+        table_clientsList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ListCliMouseClicked(evt);
+                table_clientsListMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(ListCli);
+        jScrollPane2.setViewportView(table_clientsList);
 
         jButton1.setText("Nuevo cliente");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -224,9 +224,9 @@ public class PanelClients extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_editClientAction
 
-    private void ListCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListCliMouseClicked
+    private void table_clientsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_clientsListMouseClicked
        controller.writeSelectedRow();
-    }//GEN-LAST:event_ListCliMouseClicked
+    }//GEN-LAST:event_table_clientsListMouseClicked
 
     private void newClientAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newClientAction
         if(controller.checkValidString(txtName) &&
@@ -250,7 +250,6 @@ public class PanelClients extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable ListCli;
     private javax.swing.JButton Modificar;
     private javax.swing.JCheckBox checkBox_vip;
     private javax.swing.JButton jButton1;
@@ -260,6 +259,7 @@ public class PanelClients extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable table_clientsList;
     private javax.swing.JTextField txtField_telephone;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPrename1;

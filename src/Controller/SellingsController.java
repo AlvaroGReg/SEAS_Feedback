@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import Model.ClientModel;
 import Model.Converter.ClientDBConnector;
 import Model.Converter.ProductDBConnector;
 import Model.Converter.SellingsDBConnector;
@@ -11,7 +12,11 @@ import Model.SellingModel;
 import View.PanelNewSell;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,7 +34,7 @@ public class SellingsController {
         this.panel=panel;
     }
     
-    // Refresh table data
+    // Refresh table data and choice menu
     public void refreshTable(){
         
         productDBConnector = new ProductDBConnector();
@@ -43,26 +48,61 @@ public class SellingsController {
             
             tableRow.add(productDBConnector.getProductsList().get(x).getName());
             tableRow.add(productDBConnector.getProductsList().get(x).getPrice());
-            tableModel.addRow(tableRow);
+            tableModel.addRow(tableRow);           
         }
+        
+        
+    }
+    
+    //Refresh choicer with phone, name and prename
+    public void refreshChoicer(){
+        
+        clientsDBConnector = new ClientDBConnector();
+        ArrayList<ClientModel> clientList = new ArrayList(clientsDBConnector.getClientsList());
+        
+        for(int x = 0; x < clientList.size(); x++){
+            panel.getChoice_user().add(Integer.toString(clientList.get(x).getTelephone()) + " " + clientList.get(x).getName() + " " + clientList.get(x).getPrename1());
+        }
+    }
+    
+    //Calculates totalPrice of selected items
+    public double calculateTotalPrice(){
+        
+        JTable tableForPrices = panel.getProductsTable();
+        double totalPrice = 0;
+        
+        for(int x = 0; x < tableForPrices.getRowCount(); x++){
+            try{
+            totalPrice = totalPrice + (
+                    Double.parseDouble(tableForPrices.getValueAt(x, 1).toString()) 
+                    * Double.parseDouble(tableForPrices.getValueAt(x, 2).toString()));
+            }catch(Exception e){       
+            }            
+        }
+        return totalPrice;
     }
     
     //GETS FROM VIEW THE ID AND THE QUANTITY OF PRODUCTS AND NUMBER OF CLIENT TO SAVE IT IN SELLS HISTORY
     public void newBuy(){
         
-        Double totalPrice = null;
-        int phoneNumber = Integer.parseInt(panel.getTextField_buyerNumber().getText());
+        double totalPrice = calculateTotalPrice();       
+        int phoneNumber = Integer.parseInt(panel.getChoice_user().getSelectedItem().replaceAll("[^0-9]", ""));
+        sellingDBConnector = new SellingsDBConnector();
+/*
+        if(clientsDBConnector.checkVIP(phoneNumber)){
         
-        //totalPrice = 
+            double discountedPrice = totalPrice - ( totalPrice / 20);
+            JOptionPane.showMessageDialog(panel,
+            "Se aplicará un 5% de descuento y el pago pasará de " + totalPrice + " a " + discountedPrice);
+        }
+*/
         
         SellingModel sellToAdd = new SellingModel(
-                Date.valueOf(LocalDate.MAX),
+                Date.valueOf(LocalDate.now()),
                 clientsDBConnector.getName(phoneNumber), 
                 phoneNumber, 
                 totalPrice);
         
-        sellingDBConnector.newSell(sellToAdd);
-        
-    }
-    
+        sellingDBConnector.newSell(sellToAdd);      
+    }   
 }
