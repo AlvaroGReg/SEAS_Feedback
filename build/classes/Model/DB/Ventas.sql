@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `Ventas` (
   `id_compra` int(9) NOT NULL AUTO_INCREMENT COMMENT 'id autoincremental',
   `fecha` date NOT NULL COMMENT 'fecha de la compra',
-  `comprador` int(20) COMMENT 'id del comprador',
-  `precio` int(11) COMMENT 'precio total de compra',  
-  PRIMARY KEY (`id_venta`),
+  `comprador` int(9) NOT NULL COMMENT 'telefono del comprador',
+  `precio` int(11) NOT NULL COMMENT 'precio total de compra',  
+  PRIMARY KEY (`id_compra`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Tabla de Productos' AUTO_INCREMENT=1;
