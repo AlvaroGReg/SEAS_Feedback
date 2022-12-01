@@ -195,7 +195,9 @@ public class ClientDBConnector {
             con = connection.createStatement();
             ResultSet rs = con.executeQuery("SELECT vip FROM clientes WHERE telefono = " + phone);
             
-            check = rs.getBoolean(5);
+            while(rs.next()){
+                check = rs.getBoolean(1);
+            }
             
         } catch (SQLException ex) {
             Logger.getLogger(ClientDBConnector.class.getName()).log(

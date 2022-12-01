@@ -147,7 +147,7 @@
                 <Column editable="false" title="Nombre" type="java.lang.String"/>
                 <Column editable="false" title="Apellido" type="java.lang.String"/>
                 <Column editable="false" title="Apellido 2" type="java.lang.String"/>
-                <Column editable="false" title="Telephone" type="java.lang.Integer"/>
+                <Column editable="false" title="Tel&#xe9;fono" type="java.lang.Integer"/>
                 <Column editable="false" title="VIP" type="java.lang.Boolean"/>
               </Table>
             </Property>

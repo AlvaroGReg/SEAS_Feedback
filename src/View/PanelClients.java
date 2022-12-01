@@ -96,7 +96,7 @@ public class PanelClients extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nombre", "Apellido", "Apellido 2", "Telephone", "VIP"
+                "Nombre", "Apellido", "Apellido 2", "Teléfono", "VIP"
             }
         ) {
             Class[] types = new Class [] {

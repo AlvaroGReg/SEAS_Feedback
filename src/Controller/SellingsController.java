@@ -85,17 +85,20 @@ public class SellingsController {
     //GETS FROM VIEW THE ID AND THE QUANTITY OF PRODUCTS AND NUMBER OF CLIENT TO SAVE IT IN SELLS HISTORY
     public void newBuy(){
         
-        double totalPrice = calculateTotalPrice();       
-        int phoneNumber = Integer.parseInt(panel.getChoice_user().getSelectedItem().replaceAll("[^0-9]", ""));
         sellingDBConnector = new SellingsDBConnector();
-/*
+        int phoneNumber = Integer.parseInt(panel.getChoice_user().getSelectedItem().replaceAll("[^0-9]", ""));
+
+        double totalPrice = calculateTotalPrice();
+        double discount = 0;
+        
         if(clientsDBConnector.checkVIP(phoneNumber)){
         
-            double discountedPrice = totalPrice - ( totalPrice / 20);
+            totalPrice = totalPrice - ( totalPrice / 20);
+            discount = totalPrice / 20;
             JOptionPane.showMessageDialog(panel,
-            "Se aplicará un 5% de descuento y el pago pasará de " + totalPrice + " a " + discountedPrice);
+            "Se le aplica un descuento del 5% que asciende a " + discount);
         }
-*/
+
         
         SellingModel sellToAdd = new SellingModel(
                 Date.valueOf(LocalDate.now()),

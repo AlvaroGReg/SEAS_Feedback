@@ -14,8 +14,11 @@
         <group>
             <file>file:/C:/Cursos/Java/SEAS_Feedback/src/Controller/HistoryController.java</file>
             <file>file:/C:/Cursos/Java/SEAS_Feedback/src/View/PanelHistory.java</file>
+            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/View/PanelClients.java</file>
             <file>file:/C:/Cursos/Java/SEAS_Feedback/src/Controller/SellingsController.java</file>
             <file>file:/C:/Cursos/Java/SEAS_Feedback/src/View/PanelNewSell.java</file>
+            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/Model/Converter/ClientDBConnector.java</file>
+            <file>file:/C:/Cursos/Java/SEAS_Feedback/src/Controller/ClientsController.java</file>
         </group>
     </open-files>
 </project-private>

@@ -26,7 +26,7 @@ public class ClientsController {
         
         dbConnector = new ClientDBConnector();
         DefaultTableModel tableModel = new DefaultTableModel(new String[]{
-            "ID", "Nombre", "Apellido", "Apellido2", "Telephone", "PIN"}, 0);
+            "ID", "Nombre", "Apellido", "Apellido2", "Telephone", "VIP"}, 0);
         panel.getTable().setModel(tableModel);
         panel.getScrPanel().setViewportView(panel.getTable());
                 
@@ -132,6 +132,7 @@ public class ClientsController {
           return false;
       }
     }
+    
     //Checks if number is a positive number with correct length
     public boolean checkValidPhoneNumber (JTextField textFieldToCheck){
         try{

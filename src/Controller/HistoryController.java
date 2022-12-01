@@ -8,8 +8,6 @@ import Model.Converter.ProductDBConnector;
 import Model.Converter.SellingsDBConnector;
 import View.PanelHistory;
 import java.util.Vector;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -49,8 +47,14 @@ public class HistoryController {
         
         JTable table = panel.getTable_history();
 
-        sellingsDBConector.deleteSell((int)table.getValueAt(table.getSelectedColumn(), 0));
+        sellingsDBConector.deleteSell(getSelectedID());
         
         refreshTable();
+    }
+    
+        //Returns ID of selected row
+    public int getSelectedID(){
+        return Integer.parseInt(panel.getTable_history().getValueAt(
+                panel.getTable_history().getSelectedRow(), 0).toString());
     }
 }
