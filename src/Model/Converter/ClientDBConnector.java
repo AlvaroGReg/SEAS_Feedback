@@ -64,7 +64,7 @@ public class ClientDBConnector {
             PreparedStatement query;
             
             query = connection.prepareStatement(
-                    "UPDATE clientes SET nombre=?, apellido_1=?, apellido_2=?, telephone=?, vip=? "
+                    "UPDATE clientes SET nombre=?, apellido_1=?, apellido_2=?, telefono=?, vip=? "
                             + "WHERE id_cliente=" + clientToEdit.getId());
             
             query.setString(1, clientToEdit.getName());

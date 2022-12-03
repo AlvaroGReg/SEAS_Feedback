@@ -6,6 +6,9 @@ package View;
 
 import Controller.HistoryController;
 import Main.FrameMain;
+import java.awt.Choice;
+import java.awt.TextField;
+import java.util.stream.IntStream;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -27,7 +30,25 @@ public class PanelHistory extends javax.swing.JPanel {
         initComponents();
         controller = new HistoryController(this);
         controller.refreshTable();
+        inflateChoicers();
+                
+    }
+    
+    private void inflateChoicers(){
         
+        int[] arrayTo31 = IntStream.rangeClosed(1, 31).toArray();
+        int[] arrayYears = IntStream.rangeClosed(2020, 2030).toArray();
+        for(int x = 0; x<31; x++){
+            choice_day.add(String.valueOf(arrayTo31[x]));
+        }
+        
+        for(int x = 0; x<12; x++){
+            choice_month.add(String.valueOf(arrayTo31[x]));
+        }
+        
+        for(int x = 0; x < arrayYears.length; x++){
+            choice_year.add(String.valueOf(arrayYears[x]));
+        }
         
     }
 
@@ -38,8 +59,23 @@ public class PanelHistory extends javax.swing.JPanel {
     public JTable getTable_history() {
         return historyList;
     }
-    
 
+    public Choice getChoice_day() {
+        return choice_day;
+    }
+
+    public Choice getChoice_month() {
+        return choice_month;
+    }
+
+    public Choice getChoice_year() {
+        return choice_year;
+    }
+
+    public TextField getTextField_phone() {
+        return textField_phone;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,6 +88,17 @@ public class PanelHistory extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         historyList = new javax.swing.JTable();
         button_deleteBuy = new javax.swing.JButton();
+        button_filterByUser = new javax.swing.JButton();
+        textField_phone = new java.awt.TextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        button_filterByDate = new javax.swing.JButton();
+        button_stopFilters = new javax.swing.JButton();
+        choice_day = new java.awt.Choice();
+        choice_month = new java.awt.Choice();
+        choice_year = new java.awt.Choice();
+        jLabel4 = new javax.swing.JLabel();
 
         historyList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -95,27 +142,111 @@ public class PanelHistory extends javax.swing.JPanel {
             }
         });
 
+        button_filterByUser.setText("Filtrar");
+        button_filterByUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_filterByUserActionPerformed(evt);
+            }
+        });
+
+        textField_phone.setMaximumSize(new java.awt.Dimension(150, 30));
+        textField_phone.setMinimumSize(new java.awt.Dimension(90, 20));
+
+        jLabel1.setText("Filtrar por usuario");
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
+        jLabel2.setText("Teléfono");
+
+        jLabel3.setText("Filtrar por fecha");
+
+        button_filterByDate.setText("Filtrar");
+        button_filterByDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_filterByDateActionPerformed(evt);
+            }
+        });
+
+        button_stopFilters.setText("Quitar filtros");
+        button_stopFilters.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_stopFiltersActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
+        jLabel4.setText("Día - Mes - Año");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(167, 167, 167)
-                .addComponent(button_deleteBuy)
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                                            .addComponent(textField_phone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(50, 50, 50))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(22, 22, 22)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(choice_day, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(choice_month, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(choice_year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(38, 38, 38)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(button_filterByDate)
+                                    .addComponent(button_filterByUser)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(button_stopFilters)))
+                        .addContainerGap(500, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(button_deleteBuy)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(button_deleteBuy)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(textField_phone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(button_filterByUser))
+                .addGap(3, 3, 3)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(choice_day, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(choice_month, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(choice_year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(button_filterByDate))
+                .addGap(7, 7, 7)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(button_stopFilters)
+                    .addComponent(button_deleteBuy))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -139,10 +270,33 @@ public class PanelHistory extends javax.swing.JPanel {
         
     }//GEN-LAST:event_button_deleteBuyActionPerformed
 
+    private void button_filterByUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_filterByUserActionPerformed
+        controller.refreshTableByUser();
+    }//GEN-LAST:event_button_filterByUserActionPerformed
+
+    private void button_filterByDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_filterByDateActionPerformed
+        controller.refreshTableByDate();
+    }//GEN-LAST:event_button_filterByDateActionPerformed
+
+    private void button_stopFiltersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_stopFiltersActionPerformed
+        controller.refreshTable();
+    }//GEN-LAST:event_button_stopFiltersActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button_deleteBuy;
+    private javax.swing.JButton button_filterByDate;
+    private javax.swing.JButton button_filterByUser;
+    private javax.swing.JButton button_stopFilters;
+    private java.awt.Choice choice_day;
+    private java.awt.Choice choice_month;
+    private java.awt.Choice choice_year;
     private javax.swing.JTable historyList;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
+    private java.awt.TextField textField_phone;
     // End of variables declaration//GEN-END:variables
 }

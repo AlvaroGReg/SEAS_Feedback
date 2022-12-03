@@ -10,12 +10,15 @@ import Model.Converter.ProductDBConnector;
 import Model.Converter.SellingsDBConnector;
 import Model.SellingModel;
 import View.PanelNewSell;
+import java.awt.Choice;
+import java.sql.Array;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.stream.IntStream;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -42,16 +45,17 @@ public class SellingsController {
             "Nombre", "Precio", "Cantidad*"}, 0);
         panel.getProductsTable().setModel(tableModel);
         panel.getjScrollPane2().setViewportView(panel.getProductsTable());
+        
+        int[] nunmbers = IntStream.rangeClosed(0, 20).toArray();
                 
         for(int x = 0; x<productDBConnector.getProductsList().size(); x++){
             Vector tableRow = new Vector();
             
             tableRow.add(productDBConnector.getProductsList().get(x).getName());
             tableRow.add(productDBConnector.getProductsList().get(x).getPrice());
+            
             tableModel.addRow(tableRow);           
-        }
-        
-        
+        } 
     }
     
     //Refresh choicer with phone, name and prename
@@ -89,14 +93,16 @@ public class SellingsController {
         int phoneNumber = Integer.parseInt(panel.getChoice_user().getSelectedItem().replaceAll("[^0-9]", ""));
 
         double totalPrice = calculateTotalPrice();
-        double discount = 0;
+        if (calculateTotalPrice()==0){
+            JOptionPane.showMessageDialog(new JFrame(), "No se ha realizado una compra válida. Confirme los productos", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;}
         
         if(clientsDBConnector.checkVIP(phoneNumber)){
         
             totalPrice = totalPrice - ( totalPrice / 20);
-            discount = totalPrice / 20;
             JOptionPane.showMessageDialog(panel,
-            "Se le aplica un descuento del 5% que asciende a " + discount);
+            "Se ha aplicado un descuento del 5%.");
         }
 
         
